@@ -46,6 +46,7 @@ public class StreamLauncher {
                 .build();
         device.talkerHeaders.add(header);
         join_talker(header, device.getHostName());
+
     }
 
     @Builder

@@ -37,9 +37,7 @@ public class StreamLauncher {
         return s1 + "-" + s2;
     }
 
-    @Builder
-    public void registerTalkerStream(String body, @NonNull TSNDevice device,
-                                     @NonNull int uniqueId){
+    public void registerTalkerStream(String body, TSNDevice device, int uniqueId){
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0).mac(device.getNetCard().getMac())
                 .ipv4(device.getNetCard().getIp()).hostName(device.getHostName())
@@ -49,8 +47,7 @@ public class StreamLauncher {
 
     }
 
-    @Builder
-    public void removeTalkerStream(@NonNull TSNDevice device, @NonNull Header header){
+    public void removeTalkerStream(TSNDevice device, Header header){
         leave_talker(header, device.getHostName());
         for (Header h: device.talkerHeaders){
             if (h.getKey().equals(header.getKey())){
@@ -60,8 +57,7 @@ public class StreamLauncher {
         }
     }
 
-    @Builder
-    public void registerListenerServer(@NonNull TSNDevice device, @NonNull int uniqueId){
+    public void registerListenerServer(TSNDevice device, int uniqueId){
         if (device.listenerHeader != null){
             return;
         }
@@ -73,8 +69,7 @@ public class StreamLauncher {
         join_listener(header, device.getHostName());
     }
 
-    @Builder
-    public void removeListenerServer(@NonNull TSNDevice device, @NonNull Header header){
+    public void removeListenerServer(TSNDevice device, Header header){
         leave_listener(header, device.getHostName());
         device.listenerHeader = null;
     }

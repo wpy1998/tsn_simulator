@@ -17,14 +17,15 @@ public class Header {//负责数据流header内容的转化
     private UserToNetworkRequirements userToNetworkRequirements;
     private InterfaceCapabilities interfaceCapabilities;
     private ConfigResult configResult;
-    private String mac, ipv4, ipv6, hostName;
+    private String mac, ipv4, ipv6, hostName, dest_mac, dest_ip;
 
     @Builder
     public Header(@NonNull String uniqueId, @NonNull short rank, @NonNull String mac,
-                  @NonNull String ipv4, String ipv6, @NonNull String hostName){
+                  @NonNull String ipv4, String ipv6, @NonNull String hostName,
+                  String dest_mac, String dest_ip){
         this.streamId = new StreamId(uniqueId);
         this.streamRank = new StreamRank(rank);
-        this.endStationInterface = new EndStationInterface();
+        this.endStationInterface = new EndStationInterface(mac, hostName);
         this.dateFrameSpecification = new DateFrameSpecification();
         this.trafficSpecification = new TrafficSpecification();
         this.userToNetworkRequirements = new UserToNetworkRequirements();
@@ -35,6 +36,9 @@ public class Header {//负责数据流header内容的转化
         this.ipv4 = ipv4;
         this.ipv6 = (ipv6 == null) ? "0000:0000:0000:0000:0000:0000:0000:0000" : ipv6;
         this.hostName = hostName;
+        this.dest_ip = (dest_ip == null) ? "127.0.0.1" : dest_ip;
+        this.dest_mac = (dest_mac == null) ? mac : dest_mac;
+//        System.out.println(this.mac + ", " + this.ipv4);
     }
 
     public String getKey(){
@@ -51,7 +55,7 @@ public class Header {//负责数据流header内容的转化
 
         String getJSONObject(){
 //            JSONObject object = new JSONObject();
-            String stream_id_type = mac + ":" + uniqueID;
+            String stream_id_type = mac.replace(":", "-") + ":" + uniqueID;
 //            object.put("stream-id", stream_id_type);
 //            return object;
             return stream_id_type;
@@ -78,7 +82,7 @@ public class Header {//负责数据流header内容的转化
     private class EndStationInterface {
         String macAddress, interfaceName;
 
-        public EndStationInterface(){
+        public EndStationInterface(String mac, String hostName){
             this.macAddress = mac;
             this.interfaceName = hostName + mac;
         }
@@ -108,13 +112,13 @@ public class Header {//负责数据流header内容的转化
         public DateFrameSpecification(){
             this.index = 0;
 
-            this.destinationMacAddress = "00-00-00-00-00-00";
+            this.destinationMacAddress = dest_mac;
             this.sourceMacAddress = mac;
             this.priorityCodePoint = 0;
             this.vlanId = 0;
 
             this.sourceIpAddressV4 = ipv4;
-            this.destinationIpAddressV4 = "0.0.0.0";
+            this.destinationIpAddressV4 = dest_ip;
             this.dscpV4 = 0;
             this.protocolV4 = 0;
             this.sourcePortV4 = 0;

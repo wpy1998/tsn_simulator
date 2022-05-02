@@ -37,11 +37,13 @@ public class StreamLauncher {
         return s1 + "-" + s2;
     }
 
-    public void registerTalkerStream(String body, TSNDevice device, int uniqueId){
+    public void registerTalkerStream(String body, TSNDevice device, int uniqueId,
+                                     String dest_ip, String dest_mac){
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
-                .rank((short) 0).mac(device.getNetCard().getMac())
+                .rank((short) 0).mac(device.getNetCard().getMac().
+                        replace(":", "-"))
                 .ipv4(device.getNetCard().getIp()).hostName(device.getHostName())
-                .build();
+                .dest_ip(dest_ip).dest_mac(dest_mac).build();
         device.talkerHeaders.add(header);
         join_talker(header, device.getHostName());
 
@@ -49,12 +51,11 @@ public class StreamLauncher {
 
     public void removeTalkerStream(TSNDevice device, Header header){
         leave_talker(header, device.getHostName());
-        for (Header h: device.talkerHeaders){
-            if (h.getKey().equals(header.getKey())){
-                device.talkerHeaders.remove(h);
-                break;
-            }
-        }
+//        for (Header h: device.talkerHeaders){
+//            if (h.getKey().equals(header.getKey())){
+//                break;
+//            }
+//        }
     }
 
     public void registerListenerServer(TSNDevice device, int uniqueId){
@@ -62,15 +63,17 @@ public class StreamLauncher {
             return;
         }
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
-                .rank((short) 0).mac(device.getNetCard().getMac())
+                .rank((short) 0).mac(device.getNetCard().getMac().
+                        replace(":", "-"))
                 .ipv4(device.getNetCard().getIp()).hostName(device.getHostName())
                 .build();
         device.listenerHeader = header;
         join_listener(header, device.getHostName());
     }
 
-    public void removeListenerServer(TSNDevice device, Header header){
-        leave_listener(header, device.getHostName());
+    public void removeListenerServer(TSNDevice device){
+        if (device.listenerHeader == null) return;
+        leave_listener(device.listenerHeader, device.getHostName());
         device.listenerHeader = null;
     }
 

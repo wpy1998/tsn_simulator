@@ -1,6 +1,7 @@
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import Hardware.Computer;
+import Yang.Header;
 import Yang.NetworkLauncher;
 import Yang.StreamLauncher;
 
@@ -79,11 +80,72 @@ public class SimulatorApp {
         StreamLauncher streamLauncher = StreamLauncher.builder()
                 .talkerFront(computer.urls.get("tsn-talker"))
                 .listenerFront(computer.urls.get("tsn-listener")).build();
+        streamLauncher.registerListenerServer(tsnDevice3, 0);
+        streamLauncher.registerListenerServer(tsnDevice5, 0);
+
+        streamLauncher.registerTalkerStream("body", tsnDevice1,
+                tsnDevice1.allocateUniqueId(), tsnDevice3.getNetCard().getIp(),
+                tsnDevice3.getNetCard().getMac());
+        streamLauncher.registerTalkerStream("body", tsnDevice1,
+                tsnDevice1.allocateUniqueId(), tsnDevice3.getNetCard().getIp(),
+                tsnDevice3.getNetCard().getMac());
+        streamLauncher.registerTalkerStream("body", tsnDevice1,
+                tsnDevice1.allocateUniqueId(), tsnDevice5.getNetCard().getIp(),
+                tsnDevice5.getNetCard().getMac());
 
         Scanner scanner = new Scanner(System.in);
         while (true){
             String str = scanner.next();
             if (str.equals("exit") || str.equals("quit") || str.equals("stop")){
+                streamLauncher.removeListenerServer(tsnDevice1);
+                streamLauncher.removeListenerServer(tsnDevice2);
+                streamLauncher.removeListenerServer(tsnDevice3);
+                streamLauncher.removeListenerServer(tsnDevice4);
+                streamLauncher.removeListenerServer(tsnDevice5);
+                streamLauncher.removeListenerServer(tsnDevice6);
+                streamLauncher.removeListenerServer(tsnDevice7);
+                streamLauncher.removeListenerServer(tsnDevice8);
+
+                for (Header header: tsnDevice1.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice1, header);
+                }
+                tsnDevice1.talkerHeaders.clear();
+
+                for (Header header: tsnDevice2.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice2, header);
+                }
+                tsnDevice2.talkerHeaders.clear();
+
+                for (Header header: tsnDevice3.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice3, header);
+                }
+                tsnDevice3.talkerHeaders.clear();
+
+                for (Header header: tsnDevice4.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice4, header);
+                }
+                tsnDevice4.talkerHeaders.clear();
+
+                for (Header header: tsnDevice5.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice5, header);
+                }
+                tsnDevice5.talkerHeaders.clear();
+
+                for (Header header: tsnDevice6.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice6, header);
+                }
+                tsnDevice6.talkerHeaders.clear();
+
+                for (Header header: tsnDevice7.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice7, header);
+                }
+                tsnDevice7.talkerHeaders.clear();
+
+                for (Header header: tsnDevice8.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice8, header);
+                }
+                tsnDevice8.talkerHeaders.clear();
+
                 networkLauncher.removeDevice(tsnDevice1);
                 networkLauncher.removeDevice(tsnDevice2);
                 networkLauncher.removeDevice(tsnDevice3);

@@ -44,6 +44,7 @@ public class Header {//负责数据流header内容的转化
     public Header(@NonNull String uniqueId, @NonNull short rank, @NonNull String mac,
                   @NonNull String ipv4, String ipv6, @NonNull String hostName,
                   String dest_mac, String dest_ip){
+        System.out.println(mac);
         //streamId
         this.uniqueId = uniqueId;
         System.out.println("Generate StreamID - UniqueID " + this.uniqueId);
@@ -131,8 +132,7 @@ public class Header {//负责数据流header内容的转化
     }
 
     String getStreamIdJSONObject(){
-        String stream_id_type = this.macAddress.replace(":", "-") +
-                ":" + uniqueId;
+        String stream_id_type = this.macAddress + ":" + uniqueId;
         return stream_id_type;
     }
 

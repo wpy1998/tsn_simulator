@@ -30,7 +30,10 @@ public class NetworkLauncher {
         String url1 = url + "/node/" + tsnDevice.getHostMerge();
 //        System.out.println(url1);
         JSONObject node = tsnDevice.getNodeJSONObject();
-        RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder().url(url1).build();
+        RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder()
+                .url(url1)
+//                .isDebug(true)
+                .build();
         JSONArray array1 = new JSONArray();
         array1.add(node);
         JSONObject object1 = new JSONObject();
@@ -55,7 +58,10 @@ public class NetworkLauncher {
         System.out.println("--register node to controller--");
         String url1 = url + "/node/" + tsnSwitch.getHostMerge();
         JSONObject node = tsnSwitch.getNodeJSONObject();
-        RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder().url(url1).build();
+        RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder()
+                .url(url1)
+//                .isDebug(true)
+                .build();
         JSONArray array1 = new JSONArray();
         array1.add(node);
         JSONObject object1 = new JSONObject();
@@ -79,7 +85,9 @@ public class NetworkLauncher {
         String url = this.urlFront + "topology/" + topologyId + "/node/" +
                 tsnDevice.getHostMerge();
         System.out.println("--remove node from controller--");
-        RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
+        RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder()
+                .url(url)
+                .build();
         restfulDeleteInfo.deleteInfo();
 
         String url1 = this.urlFront + "topology/" + topologyId + "/link/"

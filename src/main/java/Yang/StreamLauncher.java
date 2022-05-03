@@ -40,10 +40,12 @@ public class StreamLauncher {
     public void registerTalkerStream(String body, TSNDevice device, int uniqueId,
                                      String dest_ip, String dest_mac){
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
-                .rank((short) 0).mac(device.getNetCard().getMac().
-                        replace(":", "-"))
-                .ipv4(device.getNetCard().getIp()).hostName(device.getHostMerge())
-                .dest_ip(dest_ip).dest_mac(dest_mac).build();
+                .rank((short) 0)
+                .mac(device.getNetCard().getMac().replace(":", "-"))
+                .ipv4(device.getNetCard().getIp())
+                .hostName(device.getHostMerge())
+                .dest_ip(dest_ip)
+                .dest_mac(dest_mac.replace(":", "-")).build();
         device.talkerHeaders.add(header);
         join_talker(header, device.getHostMerge());
 
@@ -63,9 +65,10 @@ public class StreamLauncher {
             return;
         }
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
-                .rank((short) 0).mac(device.getNetCard().getMac().
-                        replace(":", "-"))
-                .ipv4(device.getNetCard().getIp()).hostName(device.getHostMerge())
+                .rank((short) 0)
+                .mac(device.getNetCard().getMac().replace(":", "-"))
+                .ipv4(device.getNetCard().getIp())
+                .hostName(device.getHostMerge())
                 .build();
         device.listenerHeader = header;
         join_listener(header, device.getHostMerge());
@@ -80,7 +83,10 @@ public class StreamLauncher {
     private int join_talker(Header header, String hostName){
         String url = this.talkerFront + hostName + "/stream-list/" + header.getKey();
 //        System.out.println(url);
-        RestfulPutInfo restfulPutInfo = RestfulPutInfo.builder().url(url).build();
+        RestfulPutInfo restfulPutInfo = RestfulPutInfo.builder()
+                .url(url)
+//                .isDebug(true)
+                .build();
 
         JSONObject joinStream = header.getJSONObject(true, true,
                 true, true, true,

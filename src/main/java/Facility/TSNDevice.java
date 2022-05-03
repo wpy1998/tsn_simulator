@@ -56,7 +56,7 @@ public class TSNDevice {
         if (netCard == null){
             return hostName;
         }else {
-            return hostName + ":" + netCard.getMac();
+            return hostName + netCard.getMac();
         }
     }
 

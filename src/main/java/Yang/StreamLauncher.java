@@ -42,15 +42,15 @@ public class StreamLauncher {
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0).mac(device.getNetCard().getMac().
                         replace(":", "-"))
-                .ipv4(device.getNetCard().getIp()).hostName(device.getHostName())
+                .ipv4(device.getNetCard().getIp()).hostName(device.getHostMerge())
                 .dest_ip(dest_ip).dest_mac(dest_mac).build();
         device.talkerHeaders.add(header);
-        join_talker(header, device.getHostName());
+        join_talker(header, device.getHostMerge());
 
     }
 
     public void removeTalkerStream(TSNDevice device, Header header){
-        leave_talker(header, device.getHostName());
+        leave_talker(header, device.getHostMerge());
 //        for (Header h: device.talkerHeaders){
 //            if (h.getKey().equals(header.getKey())){
 //                break;
@@ -65,15 +65,15 @@ public class StreamLauncher {
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0).mac(device.getNetCard().getMac().
                         replace(":", "-"))
-                .ipv4(device.getNetCard().getIp()).hostName(device.getHostName())
+                .ipv4(device.getNetCard().getIp()).hostName(device.getHostMerge())
                 .build();
         device.listenerHeader = header;
-        join_listener(header, device.getHostName());
+        join_listener(header, device.getHostMerge());
     }
 
     public void removeListenerServer(TSNDevice device){
         if (device.listenerHeader == null) return;
-        leave_listener(device.listenerHeader, device.getHostName());
+        leave_listener(device.listenerHeader, device.getHostMerge());
         device.listenerHeader = null;
     }
 

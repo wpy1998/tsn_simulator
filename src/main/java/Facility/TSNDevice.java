@@ -52,10 +52,6 @@ public class TSNDevice {
         return result;
     }
 
-    public String getHostName(){
-        return hostName;
-    }
-
     public String getHostMerge(){
         if (netCard == null){
             return hostName;

@@ -95,7 +95,7 @@ public class StreamLauncher {
 
     public int leave_talker(Header header, String hostName){
         String url = this.talkerFront + hostName + "/stream-list/" + header.getKey();
-//        System.out.println(url);
+        System.out.println("--remove talker stream from controller--");
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
         return restfulDeleteInfo.deleteInfo();
     }

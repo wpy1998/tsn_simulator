@@ -42,7 +42,7 @@ public class TSNSwitch {
         if (netCards.size() == 0){
             return hostName;
         }else {
-            return hostName + ":" + netCards.get(0).getMac();
+            return hostName + netCards.get(0).getMac();
         }
     }
 

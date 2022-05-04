@@ -12,14 +12,14 @@ import static Hardware.Computer.netCardMap;
  * @date : 5/1/22 7:14 AM
  */
 public class NetCard {
-    private static int ip_id = 1, mac_id = 1;
+    private static int mac_id = 1;
     private String ip, mac, name, connectTo, owner, linkId;
 
     @Builder
-    public NetCard(@NonNull String name, @NonNull String owner){
+    public NetCard(@NonNull String name, @NonNull String owner, @NonNull String ip){
         this.name = name;
         this.owner = owner;
-        setIp();
+        this.ip = ip;
         setMac();
         this.connectTo = null;
         if (netCardMap.get(name) != null){
@@ -32,21 +32,10 @@ public class NetCard {
         this.connectTo = connectTo;
     }
 
-    public synchronized int allocateIp(){
-        int result = ip_id;
-        ip_id++;
-        return result;
-    }
-
     public synchronized int allocateMac(){
         int result = mac_id;
         mac_id++;
         return result;
-    }
-
-    public void setIp(){
-        int last = allocateIp();
-        this.ip = "10.0.0." + Integer.toString(last);
     }
 
     public void setMac(){

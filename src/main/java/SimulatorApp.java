@@ -30,10 +30,6 @@ public class SimulatorApp {
      */
     public static void main(String[] args) {
         Computer computer = new Computer();
-        TSNSwitch tsnSwitch1 = TSNSwitch.builder().hostName("S1").build();
-        TSNSwitch tsnSwitch2 = TSNSwitch.builder().hostName("S2").build();
-        TSNSwitch tsnSwitch3 = TSNSwitch.builder().hostName("S3").build();
-        TSNSwitch tsnSwitch4 = TSNSwitch.builder().hostName("S4").build();
 
         TSNDevice tsnDevice1 = TSNDevice.builder().hostName("D1").build();
         TSNDevice tsnDevice2 = TSNDevice.builder().hostName("D2").build();
@@ -44,7 +40,12 @@ public class SimulatorApp {
         TSNDevice tsnDevice7 = TSNDevice.builder().hostName("D7").build();
         TSNDevice tsnDevice8 = TSNDevice.builder().hostName("D8").build();
 
-        //switch -- device
+        TSNSwitch tsnSwitch1 = TSNSwitch.builder().hostName("S1").build();
+        TSNSwitch tsnSwitch2 = TSNSwitch.builder().hostName("S2").build();
+        TSNSwitch tsnSwitch3 = TSNSwitch.builder().hostName("S3").build();
+        TSNSwitch tsnSwitch4 = TSNSwitch.builder().hostName("S4").build();
+
+        //switch - - device
         connectNetCard(tsnSwitch1.createNetCard(), tsnDevice1.getNetCard());
         connectNetCard(tsnSwitch1.createNetCard(), tsnDevice2.getNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnDevice3.getNetCard());

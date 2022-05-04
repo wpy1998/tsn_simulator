@@ -17,7 +17,7 @@ import static Hardware.Computer.*;
  */
 public class TSNSwitch {
     public List<NetCard> netCards;
-    private String hostName;
+    private String hostName, ip;
 
     @Builder
     public TSNSwitch(@NonNull String hostName){
@@ -25,13 +25,14 @@ public class TSNSwitch {
         if (switchMap.get(this.hostName) != null){
             this.hostName = this.hostName + "*";
         }
+        setIp();
         switchMap.put(this.hostName, this);
         netCards = new ArrayList<>();
     }
 
     public NetCard createNetCard(){
         NetCard netCard = NetCard.builder().name(this.hostName + "-netCard" + netCards.size())
-                .owner(this.hostName).build();
+                .owner(this.hostName).ip(this.ip).build();
         netCards.add(netCard);
         netCardMap.put(netCard.getName(), netCard);
         return netCard;
@@ -43,6 +44,11 @@ public class TSNSwitch {
         }else {
             return hostName + ":" + netCards.get(0).getMac();
         }
+    }
+
+    public void setIp(){
+        int last = allocateIp();
+        this.ip = "10.0.0." + Integer.toString(last);
     }
 
     public JSONObject getNodeJSONObject(){

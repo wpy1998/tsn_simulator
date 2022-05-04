@@ -21,6 +21,7 @@ public class Computer {
     public static Map<String, TSNSwitch> switchMap = new HashMap<>();
     public static long firstSeen = System.currentTimeMillis();
     public static String cuc_ip = "localhost";
+    public static int ip_id = 1;
 
     public Map<String, String> urls;
     public Computer(){
@@ -31,5 +32,11 @@ public class Computer {
                 ":8181/restconf/config/network-topology:network-topology/");
         urls.put("tsn-listener", "http://" + cuc_ip +
                 ":8181/restconf/config/tsn-listener-type:stream-listener-config/devices/");
+    }
+
+    public static synchronized int allocateIp(){
+        int result = ip_id;
+        ip_id++;
+        return result;
     }
 }

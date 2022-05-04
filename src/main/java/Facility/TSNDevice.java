@@ -18,7 +18,7 @@ import static Hardware.Computer.*;
  */
 public class TSNDevice {
     private NetCard netCard = null;
-    private String hostName;
+    private String hostName, ip;
     public List<Header> talkerHeaders;
     public Header listenerHeader;
     private int uniqueId;
@@ -31,13 +31,14 @@ public class TSNDevice {
         if (deviceMap.get(this.hostName) != null){
             this.hostName = this.hostName + "*";
         }
+        setIp();
         deviceMap.put(this.hostName, this);
         createNetCard();
     }
 
     private NetCard createNetCard(){
         netCard = NetCard.builder().name(this.hostName + "-netCard")
-                .owner(this.hostName).build();
+                .owner(this.hostName).ip(this.ip).build();
         netCardMap.put(netCard.getName(), netCard);
         return netCard;
     }
@@ -58,6 +59,11 @@ public class TSNDevice {
         }else {
             return hostName + netCard.getMac();
         }
+    }
+
+    public void setIp(){
+        int last = allocateIp();
+        this.ip = "10.0.0." + Integer.toString(last);
     }
 
     public JSONObject getNodeJSONObject(){

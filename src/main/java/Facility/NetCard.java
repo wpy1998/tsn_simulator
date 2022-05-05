@@ -16,7 +16,7 @@ public class NetCard {
     private String ip, mac, name, connectTo, owner, linkId;
 
     @Builder
-    public NetCard(@NonNull String name, @NonNull String owner, @NonNull String ip){
+    public NetCard(@NonNull String name, @NonNull String ip){
         this.name = name;
         this.owner = owner;
         this.ip = ip;
@@ -26,6 +26,10 @@ public class NetCard {
             this.name = name + "*";
         }
         netCardMap.put(this.name, this);
+    }
+
+    public void setOwner(String owner){
+        this.owner = owner;
     }
 
     public void setConnectTo(String connectTo){

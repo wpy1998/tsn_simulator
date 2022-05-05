@@ -17,7 +17,7 @@ import static Hardware.Computer.*;
  */
 public class TSNSwitch {
     public List<NetCard> netCards;
-    private String hostName, ip;
+    private String hostName, ip, hostMerge;
 
     @Builder
     public TSNSwitch(@NonNull String hostName){
@@ -32,18 +32,20 @@ public class TSNSwitch {
 
     public NetCard createNetCard(){
         NetCard netCard = NetCard.builder().name(this.hostName + "-netCard" + netCards.size())
-                .owner(this.hostName).ip(this.ip).build();
+                .ip(this.ip).build();
         netCards.add(netCard);
         netCardMap.put(netCard.getName(), netCard);
+        netCard.setOwner(getHostMerge());
         return netCard;
     }
 
     public String getHostMerge(){
         if (netCards.size() == 0){
-            return hostName;
+            hostMerge = hostName;
         }else {
-            return hostName + netCards.get(0).getMac();
+            hostMerge = hostName + netCards.get(0).getMac();
         }
+        return hostMerge;
     }
 
     public void setIp(){

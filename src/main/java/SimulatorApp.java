@@ -5,6 +5,7 @@ import Yang.Header;
 import Yang.NetworkLauncher;
 import Yang.StreamLauncher;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import static Facility.NetCard.connectNetCard;
@@ -28,7 +29,7 @@ public class SimulatorApp {
      *      |          |
      *      d6        d8
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
         Computer computer = new Computer();
 
         TSNDevice tsnDevice1 = TSNDevice.builder().hostName("D1").build();

@@ -8,6 +8,8 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.NonNull;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * @author : wpy
  * @description: TODO
@@ -38,16 +40,19 @@ public class StreamLauncher {
     }
 
     public void registerTalkerStream(String body, TSNDevice device, int uniqueId,
-                                     String dest_ip, String dest_mac){
+                                     String dest_ip, String dest_mac)
+            throws UnsupportedEncodingException {
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0)
                 .mac(device.getNetCard().getMac().replace(":", "-"))
                 .ipv4(device.getNetCard().getIp())
                 .hostName(device.getHostMerge())
                 .dest_ip(dest_ip)
-                .dest_mac(dest_mac.replace(":", "-")).build();
+                .dest_mac(dest_mac.replace(":", "-"))
+                .build();
         device.talkerHeaders.add(header);
-        join_talker(header, device.getHostMerge());
+        join_talker(header, device.getHostMerge(), "Byte",
+                body.getBytes("gbk").length);
 
     }
 
@@ -80,7 +85,7 @@ public class StreamLauncher {
         device.listenerHeader = null;
     }
 
-    private int join_talker(Header header, String hostName){
+    private int join_talker(Header header, String hostName, String unit, long size){
         String url = this.talkerFront + hostName + "/stream-list/" + header.getKey();
 //        System.out.println(url);
         RestfulPutInfo restfulPutInfo = RestfulPutInfo.builder()
@@ -91,7 +96,8 @@ public class StreamLauncher {
         JSONObject joinStream = header.getJSONObject(true, true,
                 true, true, true,
                 true, true);
-        joinStream.put("body", "join talker");
+        joinStream.put("packet-unit", unit);
+        joinStream.put("packet-size", size);
         JSONArray streams = new JSONArray();
         streams.add(joinStream);
         JSONObject device = new JSONObject();
@@ -114,7 +120,6 @@ public class StreamLauncher {
         JSONObject joinStream = header.getJSONObject(true, false,
                 true, false, false,
                 true, true);
-        joinStream.put("body", "join listener");
         JSONArray streams = new JSONArray();
         streams.add(joinStream);
         JSONObject device = new JSONObject();

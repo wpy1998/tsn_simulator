@@ -91,7 +91,10 @@ public class SimulatorApp {
         streamLauncher.registerTalkerStream("body", tsnDevice1,
                 tsnDevice1.allocateUniqueId(), tsnDevice3.getNetCard().getIp(),
                 tsnDevice3.getNetCard().getMac());
-        streamLauncher.registerTalkerStream("body", tsnDevice1,
+        streamLauncher.registerTalkerStream("body", tsnDevice2,
+                tsnDevice1.allocateUniqueId(), tsnDevice5.getNetCard().getIp(),
+                tsnDevice5.getNetCard().getMac());
+        streamLauncher.registerTalkerStream("body", tsnDevice8,
                 tsnDevice1.allocateUniqueId(), tsnDevice5.getNetCard().getIp(),
                 tsnDevice5.getNetCard().getMac());
 

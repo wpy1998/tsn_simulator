@@ -84,19 +84,107 @@ public class SimulatorApp {
                 .listenerFront(computer.urls.get("tsn-listener")).build();
         streamLauncher.registerListenerServer(tsnDevice3, 0);
         streamLauncher.registerListenerServer(tsnDevice5, 0);
+        streamLauncher.registerListenerServer(tsnDevice8, 0);
 
-        streamLauncher.registerTalkerStream("body", tsnDevice1,
-                tsnDevice1.allocateUniqueId(), tsnDevice3.getNetCard().getIp(),
-                tsnDevice3.getNetCard().getMac());
-        streamLauncher.registerTalkerStream("body", tsnDevice1,
-                tsnDevice1.allocateUniqueId(), tsnDevice3.getNetCard().getIp(),
-                tsnDevice3.getNetCard().getMac());
-        streamLauncher.registerTalkerStream("body", tsnDevice2,
-                tsnDevice1.allocateUniqueId(), tsnDevice5.getNetCard().getIp(),
-                tsnDevice5.getNetCard().getMac());
-        streamLauncher.registerTalkerStream("body", tsnDevice8,
-                tsnDevice1.allocateUniqueId(), tsnDevice5.getNetCard().getIp(),
-                tsnDevice5.getNetCard().getMac());
+        //talker stream of tsnDevice1
+        streamLauncher.registerTalkerStream("talker stream message1", tsnDevice1,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message2", tsnDevice1,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message3", tsnDevice1,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message4", tsnDevice1,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message5", tsnDevice1,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message6", tsnDevice1,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice2
+        streamLauncher.registerTalkerStream("talker stream message7", tsnDevice2,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message8", tsnDevice2,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message9", tsnDevice2,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message10", tsnDevice2,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message11", tsnDevice2,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message12", tsnDevice2,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice3
+        streamLauncher.registerTalkerStream("talker stream message13", tsnDevice3,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message14", tsnDevice3,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message15", tsnDevice3,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message16", tsnDevice3,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice4
+        streamLauncher.registerTalkerStream("talker stream message17", tsnDevice4,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message18", tsnDevice4,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message19", tsnDevice4,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message20", tsnDevice4,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message21", tsnDevice4,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message22", tsnDevice4,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice5
+        streamLauncher.registerTalkerStream("talker stream message23", tsnDevice5,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message24", tsnDevice5,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message25", tsnDevice5,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message26", tsnDevice5,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice6
+        streamLauncher.registerTalkerStream("talker stream message27", tsnDevice6,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message28", tsnDevice6,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message29", tsnDevice6,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message30", tsnDevice6,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message31", tsnDevice6,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message32", tsnDevice6,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice7
+        streamLauncher.registerTalkerStream("talker stream message33", tsnDevice7,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message34", tsnDevice7,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message35", tsnDevice7,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message36", tsnDevice7,
+                tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message37", tsnDevice7,
+                tsnDevice8, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message38", tsnDevice7,
+                tsnDevice8, (short) 1);
+
+        //talker stream of tsnDevice8
+        streamLauncher.registerTalkerStream("talker stream message39", tsnDevice8,
+                tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message40", tsnDevice8,
+                tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream("talker stream message41", tsnDevice8,
+                tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream("talker stream message42", tsnDevice8,
+                tsnDevice5, (short) 1);
 
         Scanner scanner = new Scanner(System.in);
         while (true){

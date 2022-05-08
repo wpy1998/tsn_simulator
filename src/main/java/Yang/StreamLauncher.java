@@ -39,19 +39,20 @@ public class StreamLauncher {
         return s1 + "-" + s2;
     }
 
-    public void registerTalkerStream(String body, TSNDevice device, int uniqueId,
-                                     String dest_ip, String dest_mac)
+    public void registerTalkerStream(String body, TSNDevice source,
+                                     TSNDevice dest, short rank)
             throws UnsupportedEncodingException {
-        Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
-                .rank((short) 0)
-                .mac(device.getNetCard().getMac().replace(":", "-"))
-                .ipv4(device.getNetCard().getIp())
-                .hostName(device.getHostMerge())
-                .dest_ip(dest_ip)
-                .dest_mac(dest_mac.replace(":", "-"))
+        Header header = Header.builder()
+                .uniqueId(convertUniqueID(source.allocateUniqueId()))
+                .rank(rank)
+                .mac(source.getNetCard().getMac().replace(":", "-"))
+                .ipv4(source.getNetCard().getIp())
+                .hostName(source.getHostMerge())
+                .dest_ip(dest.getNetCard().getIp())
+                .dest_mac(dest.getNetCard().getMac().replace(":", "-"))
                 .build();
-        device.talkerHeaders.add(header);
-        join_talker(header, device.getHostMerge(), "Byte",
+        source.talkerHeaders.add(header);
+        join_talker(header, source.getHostMerge(), "Byte",
                 body.getBytes("gbk").length);
 
     }

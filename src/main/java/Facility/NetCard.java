@@ -1,8 +1,14 @@
 package Facility;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.NonNull;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 
 import static Hardware.Computer.netCardMap;
 
@@ -106,6 +112,17 @@ public class NetCard {
         destination.put("dest-node", dest.getOwner());
         destination.put("dest-tp", dest.getName());
         link.put("destination", destination);
+        link.put("speed", getSpeed());
         return link;
+    }
+
+    public JSONObject getSpeed(){
+        JSONObject speed = new JSONObject();
+        speed.put("packet-size", 64);
+        speed.put("loss", 0.0);
+        speed.put("best", 0.99);
+        speed.put("worst", 2.22);
+        speed.put("avg", 1.70);
+        return speed;
     }
 }

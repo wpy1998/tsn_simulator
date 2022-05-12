@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 
+import static Hardware.Computer.deviceMap;
 import static Hardware.Computer.netCardMap;
 
 /**
@@ -88,9 +89,9 @@ public class NetCard {
     }
 
     public String  getLinkId(){
-        NetCard dest = netCardMap.get(connectTo);
-        this.linkId = getName() + "(" + getMac() + ")--" + dest.getName() +
-                "(" + dest.getMac() + ")";
+        NetCard destPort = netCardMap.get(connectTo);
+        this.linkId = getOwner() + "(" + getName() + ")--" + destPort.getOwner() +
+                "(" + destPort.getName() + ")";
         return linkId;
     }
 
@@ -99,8 +100,7 @@ public class NetCard {
         if (dest == null){
             return null;
         }
-        this.linkId = getName() + "(" + getMac() + ")--" + dest.getName() +
-                "(" + dest.getMac() + ")";
+        this.linkId = getLinkId();
 
         JSONObject link = new JSONObject();
         link.put("link-id", linkId);

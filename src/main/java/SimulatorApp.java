@@ -140,10 +140,10 @@ public class SimulatorApp {
         streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice8, (short) 1);
 
         //talker stream of tsnDevice8
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice3, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice3, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream(body + body, tsnDevice8, tsnDevice3, (short) 0);
+        streamLauncher.registerTalkerStream(body + body, tsnDevice8, tsnDevice3, (short) 1);
+        streamLauncher.registerTalkerStream(body + body, tsnDevice8, tsnDevice5, (short) 0);
+        streamLauncher.registerTalkerStream(body + body, tsnDevice8, tsnDevice5, (short) 1);
 
         Scanner scanner = new Scanner(System.in);
         while (true){

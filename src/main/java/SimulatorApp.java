@@ -18,16 +18,16 @@ import static Hardware.Computer.topology_id;
  */
 public class SimulatorApp {
     /**
-     *      d2         d4
-     *      |          |
-     * d1---s1--------s2---d3
-     *      | \      / |
-     *      |   \  /   |
-     *      |    / \   |
-     *      |  /     \ |
-     * d5---s3--------s4---d7
-     *      |          |
-     *      d6        d8
+     *      d2     d4
+     *      |      |
+     * d1---s1----s2---d3
+     *      | \  /|
+     *      |  \/ |
+     *      | / \ |
+     *      |/   \|
+     * d5---s3----s4---d7
+     *      |     |
+     *      d6    d8
      */
     public static void main(String[] args) throws UnsupportedEncodingException {
         Computer computer = new Computer();

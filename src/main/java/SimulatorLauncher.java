@@ -76,9 +76,10 @@ public class SimulatorLauncher {
         streamLauncher.registerListenerServer(tsnDevice8, 0);
     }
 
-    public void start(){
-        generateStream();
-        generateStream();
+    public void start(int cir){
+        for (int i = 0; i < cir; i++){
+            generateStream();
+        }
         Scanner scanner = new Scanner(System.in);
         while (true){
             String str = scanner.next();

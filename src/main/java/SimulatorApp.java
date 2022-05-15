@@ -33,6 +33,6 @@ public class SimulatorApp {
         Computer computer = new Computer();
         SimulatorLauncher launcher = new SimulatorLauncher();
         launcher.init(computer);
-        launcher.start(10);
+        launcher.start(20);
     }
 }

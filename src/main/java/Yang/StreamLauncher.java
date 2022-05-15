@@ -39,9 +39,8 @@ public class StreamLauncher {
         return s1 + "-" + s2;
     }
 
-    public void registerTalkerStream(String body, TSNDevice source,
-                                     TSNDevice dest, short rank)
-            throws UnsupportedEncodingException {
+    public void registerTalkerStream(int body, TSNDevice source,
+                                     TSNDevice dest, short rank){
         Header header = Header.builder()
                 .uniqueId(convertUniqueID(source.allocateUniqueId()))
                 .rank(rank)
@@ -52,8 +51,7 @@ public class StreamLauncher {
                 .dest_mac(dest.getNetCard().getMac().replace(":", "-"))
                 .build();
         source.talkerHeaders.add(header);
-        join_talker(header, source.getHostMerge(), "Byte",
-                body.getBytes("gbk").length);
+        join_talker(header, source.getHostMerge(), "Byte", body);
 
     }
 
@@ -99,6 +97,7 @@ public class StreamLauncher {
                 true, true);
         joinStream.put("packet-unit", unit);
         joinStream.put("packet-size", size);
+        joinStream.put("create-time", System.currentTimeMillis());
         JSONArray streams = new JSONArray();
         streams.add(joinStream);
         JSONObject device = new JSONObject();

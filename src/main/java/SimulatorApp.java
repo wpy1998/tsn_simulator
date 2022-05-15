@@ -1,15 +1,6 @@
-import Facility.TSNDevice;
-import Facility.TSNSwitch;
 import Hardware.Computer;
-import Yang.Header;
-import Yang.NetworkLauncher;
-import Yang.StreamLauncher;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
-
-import static Facility.NetCard.connectNetCard;
-import static Hardware.Computer.topology_id;
 
 /**
  * @author : wpy
@@ -31,8 +22,12 @@ public class SimulatorApp {
      */
     public static void main(String[] args) throws UnsupportedEncodingException {
         Computer computer = new Computer();
-        SimulatorLauncher launcher = new SimulatorLauncher();
+//        SquareLauncher launcher = new SquareLauncher();
+//        launcher.init(computer);
+//        launcher.start(1);
+
+        FivePointedStarLauncher launcher = new FivePointedStarLauncher();
         launcher.init(computer);
-        launcher.start(20);
+        launcher.start(150);
     }
 }

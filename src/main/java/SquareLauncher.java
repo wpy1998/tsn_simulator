@@ -1,3 +1,4 @@
+import Facility.NetCard;
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import Hardware.Computer;
@@ -7,17 +8,16 @@ import Yang.StreamLauncher;
 
 import java.util.Scanner;
 
-import static Facility.NetCard.connectNetCard;
 import static Hardware.Computer.topology_id;
 
-public class SimulatorLauncher {
+public class SquareLauncher {
     TSNDevice tsnDevice1, tsnDevice2, tsnDevice3, tsnDevice4, tsnDevice5, tsnDevice6,
             tsnDevice7, tsnDevice8;
     TSNSwitch tsnSwitch1, tsnSwitch2, tsnSwitch3, tsnSwitch4;
     StreamLauncher streamLauncher;
     NetworkLauncher networkLauncher;
 
-    public SimulatorLauncher(){
+    public SquareLauncher(){
     }
 
     public void init(Computer computer){
@@ -209,5 +209,10 @@ public class SimulatorLauncher {
         streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice3, (short) 1);
         streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 0);
         streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 1);
+    }
+
+    public void connectNetCard(NetCard n1, NetCard n2){
+        n1.setConnectTo(n2.getName());
+        n2.setConnectTo(n1.getName());
     }
 }

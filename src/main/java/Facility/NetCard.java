@@ -83,11 +83,6 @@ public class NetCard {
         return owner;
     }
 
-    public static void connectNetCard(NetCard n1, NetCard n2){
-        n1.setConnectTo(n2.getName());
-        n2.setConnectTo(n1.getName());
-    }
-
     public String  getLinkId(){
         NetCard destPort = netCardMap.get(connectTo);
         this.linkId = getOwner() + "(" + getName() + ")--" + destPort.getOwner() +

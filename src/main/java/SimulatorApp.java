@@ -22,12 +22,12 @@ public class SimulatorApp {
      */
     public static void main(String[] args) throws UnsupportedEncodingException {
         Computer computer = new Computer();
-//        SquareLauncher launcher = new SquareLauncher();
-//        launcher.init(computer);
-//        launcher.start(1);
-
-        FivePointedStarLauncher launcher = new FivePointedStarLauncher();
+        SquareLauncher launcher = new SquareLauncher();
         launcher.init(computer);
-        launcher.start(150);
+        launcher.start(80);
+
+//        FivePointedStarLauncher launcher = new FivePointedStarLauncher();
+//        launcher.init(computer);
+//        launcher.start(150);
     }
 }

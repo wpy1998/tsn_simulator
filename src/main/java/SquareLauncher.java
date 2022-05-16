@@ -152,7 +152,7 @@ public class SquareLauncher {
     }
 
     private void generateStream(){
-        int body = 500;
+        int body = 400;
         //talker stream of tsnDevice1
 //        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice3, (short) 0);
 //        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice3, (short) 1);

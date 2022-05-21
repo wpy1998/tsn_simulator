@@ -20,11 +20,11 @@ public class SimulatorApp {
      *      |     |
      *     d6    d8
      */
-    public static void main(String[] args) throws UnsupportedEncodingException {
+    public static void main(String[] args){
         Computer computer = new Computer();
         SquareLauncher launcher = new SquareLauncher();
         launcher.init(computer);
-        launcher.start(100);
+        launcher.start(1);
     }
     //5, 10, 15, 20, 25
 }

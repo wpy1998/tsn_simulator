@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.NonNull;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : wpy
@@ -40,19 +42,24 @@ public class StreamLauncher {
     }
 
     public void registerTalkerStream(int body, TSNDevice source,
-                                     TSNDevice dest, short rank){
+                                     List<TSNDevice> dest, short rank){
+        List<String> ips = new ArrayList<>(), macs = new ArrayList<>();
+        for (int i = 0; i < dest.size(); i++){
+            TSNDevice device = dest.get(i);
+            ips.add(device.getIp());
+            macs.add(device.getNetCard().getMac().replace(":", "-"));
+        }
         Header header = Header.builder()
                 .uniqueId(convertUniqueID(source.allocateUniqueId()))
                 .rank(rank)
                 .mac(source.getNetCard().getMac().replace(":", "-"))
                 .ipv4(source.getNetCard().getIp())
                 .hostName(source.getHostMerge())
-                .dest_ip(dest.getNetCard().getIp())
-                .dest_mac(dest.getNetCard().getMac().replace(":", "-"))
+                .dest_ip(ips)
+                .dest_mac(macs)
                 .build();
         source.talkerHeaders.add(header);
         join_talker(header, source.getHostMerge(), "Byte", body);
-
     }
 
     public void removeTalkerStream(TSNDevice device, Header header){

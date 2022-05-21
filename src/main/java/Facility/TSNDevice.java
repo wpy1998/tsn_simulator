@@ -63,6 +63,10 @@ public class TSNDevice {
         return hostMerge;
     }
 
+    public String getIp(){
+        return ip;
+    }
+
     public void setIp(){
         int last = allocateIp();
         this.ip = "10.0.0." + Integer.toString(last);

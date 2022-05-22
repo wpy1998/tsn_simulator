@@ -163,15 +163,15 @@ public class SquareLauncher {
         tsnDevices3.add(tsnDevice5);
         tsnDevices3.add(tsnDevice6);
 
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 1);
-//
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 1);
+
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
 
         streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 0);
         streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 1);

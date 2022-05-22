@@ -162,67 +162,21 @@ public class SquareLauncher {
         List<TSNDevice> tsnDevices3 = new ArrayList<>();
         tsnDevices3.add(tsnDevice5);
         tsnDevices3.add(tsnDevice6);
-        //talker stream of tsnDevice1
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice3, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevice8, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 1);
 
-        //talker stream of tsnDevice2
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevice3, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevice8, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 1);
+//
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
 
-//        //talker stream of tsnDevice3
-//        streamLauncher.registerTalkerStream(body, tsnDevice3, tsnDevice5, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice3, tsnDevice5, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice3, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice3, tsnDevice8, (short) 1);
-//
-//        //talker stream of tsnDevice4
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice5, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice5, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevice8, (short) 1);
-//
-//        //talker stream of tsnDevice5
-//        streamLauncher.registerTalkerStream(body, tsnDevice5, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice5, tsnDevice3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice5, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice5, tsnDevice8, (short) 1);
-//
-//        //talker stream of tsnDevice6
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice5, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice5, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevice8, (short) 1);
-//
-//        //talker stream of tsnDevice7
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice5, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice5, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice8, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice7, tsnDevice8, (short) 1);
-//
-//        //talker stream of tsnDevice8
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevice5, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

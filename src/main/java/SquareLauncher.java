@@ -49,7 +49,7 @@ public class SquareLauncher {
 
         //switch -- switch
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch2.createNetCard());
-//        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
+        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch4.createNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch3.createNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch4.createNetCard());

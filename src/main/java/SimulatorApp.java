@@ -24,7 +24,7 @@ public class SimulatorApp {
         Computer computer = new Computer();
         SquareLauncher launcher = new SquareLauncher();
         launcher.init(computer);
-        launcher.start(60);
+        launcher.start(1);
     }
     //5, 10, 15, 20, 25
 }

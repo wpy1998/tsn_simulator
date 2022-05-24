@@ -49,7 +49,7 @@ public class SquareLauncher {
 
         //switch -- switch
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch2.createNetCard());
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
+//        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch4.createNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch3.createNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch4.createNetCard());
@@ -173,10 +173,10 @@ public class SquareLauncher {
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
 
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

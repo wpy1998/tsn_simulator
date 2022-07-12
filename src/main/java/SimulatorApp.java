@@ -22,9 +22,13 @@ public class SimulatorApp {
      */
     public static void main(String[] args){
         Computer computer = new Computer();
-        SquareLauncher launcher = new SquareLauncher();
-        launcher.init(computer);
-        launcher.start(1);
+//        SquareLauncher launcher = new SquareLauncher();
+//        launcher.init(computer);
+//        launcher.start(20);
+
+        TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
+        twelvePointsLauncher.init(computer);
+        twelvePointsLauncher.start(10);
     }
     //5, 10, 15, 20, 25
 }

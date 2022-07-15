@@ -24,11 +24,11 @@ public class SimulatorApp {
         Computer computer = new Computer();
 //        SquareLauncher launcher = new SquareLauncher();
 //        launcher.init(computer);
-//        launcher.start(20);
+//        launcher.start(5);
 
         TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
         twelvePointsLauncher.init(computer);
-        twelvePointsLauncher.start(10);
+        twelvePointsLauncher.start(100);
     }
     //5, 10, 15, 20, 25
 }

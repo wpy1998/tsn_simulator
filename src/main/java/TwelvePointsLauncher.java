@@ -189,7 +189,7 @@ public class TwelvePointsLauncher {
     }
 
     private void generateStream(){
-        int body = 400;
+        int body = 800;
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
         tsnDevices1.add(tsnDevice1);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();

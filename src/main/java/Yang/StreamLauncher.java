@@ -109,12 +109,13 @@ public class StreamLauncher {
         streams.add(joinStream);
         JSONObject device = new JSONObject();
         device.put("stream-list", streams);
+        System.out.println("--register talker to controller--");
         return restfulPutInfo.putInfo(device.toString());
     }
 
     public int leave_talker(Header header, String hostName){
         String url = this.talkerFront + hostName + "/stream-list/" + header.getKey();
-        System.out.println("--remove talker stream from controller--");
+        System.out.println("--remove talker from controller--");
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
         return restfulDeleteInfo.deleteInfo();
     }

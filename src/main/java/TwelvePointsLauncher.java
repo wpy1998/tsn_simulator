@@ -198,15 +198,22 @@ public class TwelvePointsLauncher {
         tsnDevices3.add(tsnDevice5);
         List<TSNDevice> tsnDevices4 = new ArrayList<>();
         tsnDevices4.add(tsnDevice7);
+        List<TSNDevice> tsnDevices5 = new ArrayList<>();
+        tsnDevices5.add(tsnDevice1);
+        tsnDevices5.add(tsnDevice3);
+        tsnDevices5.add(tsnDevice5);
+        tsnDevices5.add(tsnDevice7);
 
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

@@ -108,7 +108,10 @@ public class TwelvePointsLauncher {
 
     public void start(int cir){
         for (int i = 0; i < cir; i++){
-            generateStream();
+//            generateUnicastStream(400);
+//            generateUnicastStream(500);
+            generateUnicastStream(1000);
+//            generateBroadcastStream(1000);
         }
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -188,8 +191,7 @@ public class TwelvePointsLauncher {
         }
     }
 
-    private void generateStream(){
-        int body = 800;
+    private void generateUnicastStream(int body){
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
         tsnDevices1.add(tsnDevice1);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();
@@ -198,20 +200,24 @@ public class TwelvePointsLauncher {
         tsnDevices3.add(tsnDevice5);
         List<TSNDevice> tsnDevices4 = new ArrayList<>();
         tsnDevices4.add(tsnDevice7);
+
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 1);
+    }
+
+    public void generateBroadcastStream(int body){
         List<TSNDevice> tsnDevices5 = new ArrayList<>();
         tsnDevices5.add(tsnDevice1);
         tsnDevices5.add(tsnDevice3);
         tsnDevices5.add(tsnDevice5);
         tsnDevices5.add(tsnDevice7);
 
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices4, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 1);
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 0);
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 1);
     }

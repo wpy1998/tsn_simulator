@@ -111,7 +111,7 @@ public class TwelvePointsLauncher {
 //            generateUnicastStream(400);
 //            generateUnicastStream(500);
             generateUnicastStream(1000);
-//            generateBroadcastStream(1000);
+            generateBroadcastStream(1000);
         }
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -212,14 +212,20 @@ public class TwelvePointsLauncher {
     }
 
     public void generateBroadcastStream(int body){
-        List<TSNDevice> tsnDevices5 = new ArrayList<>();
-        tsnDevices5.add(tsnDevice1);
-        tsnDevices5.add(tsnDevice3);
-        tsnDevices5.add(tsnDevice5);
-        tsnDevices5.add(tsnDevice7);
+        List<TSNDevice> tsnDevices = new ArrayList<>();
+        tsnDevices.add(tsnDevice1);
+        tsnDevices.add(tsnDevice3);
+        tsnDevices.add(tsnDevice5);
+        tsnDevices.add(tsnDevice7);
 
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices5, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

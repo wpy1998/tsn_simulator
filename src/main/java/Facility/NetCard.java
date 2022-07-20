@@ -113,11 +113,11 @@ public class NetCard {
 
     public JSONObject getSpeed(){
         JSONObject speed = new JSONObject();
-        speed.put("packet-size", 64);
+        speed.put("sending-speed", 1000);
         speed.put("loss", 0.0);
-        speed.put("best", 0.99);
-        speed.put("worst", 2.22);
-        speed.put("avg", 1.70);
+        speed.put("best-transmission-delay", 0.99);
+        speed.put("worst-transmission-delay", 2.22);
+        speed.put("avg-transmission-delay", 1.70);
         return speed;
     }
 }

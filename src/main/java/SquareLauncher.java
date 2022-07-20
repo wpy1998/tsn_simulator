@@ -154,7 +154,7 @@ public class SquareLauncher {
     }
 
     private void generateStream(){
-        int body = 400;
+        int body = 1000000;
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
         tsnDevices1.add(tsnDevice5);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();

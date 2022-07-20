@@ -28,7 +28,7 @@ public class SimulatorApp {
 
         TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
         twelvePointsLauncher.init(computer);
-        twelvePointsLauncher.start(1);
+        twelvePointsLauncher.start(100);
     }
     //5, 10, 15, 20, 25
 }

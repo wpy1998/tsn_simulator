@@ -39,7 +39,7 @@ public class TSNDevice {
     }
 
     private NetCard createNetCard(){
-        netCard = NetCard.builder().name(this.hostName + "-netCard")
+        netCard = NetCard.builder().name(this.hostName + "-netCard").owner(hostName)
                 .ip(this.ip).build();
         netCardMap.put(netCard.getName(), netCard);
         return netCard;

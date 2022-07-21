@@ -20,13 +20,21 @@ import static Hardware.Computer.netCardMap;
  */
 public class NetCard {
     private static int mac_id = 1;
-    private String ip, mac, name, connectTo, owner, linkId;
+    private int sendingSpeed;
+    private double avg, best, worst, loss;
+    private String ip, mac, name, connectTo, linkId, owner;
 
     @Builder
-    public NetCard(@NonNull String name, @NonNull String ip){
+    public NetCard(@NonNull String name, @NonNull String ip, Double avg, Double best, Double worst,
+                   Double loss, Integer sendingSpeed, @NonNull String owner){
         this.name = name;
-        this.owner = owner;
         this.ip = ip;
+        this.owner = owner;
+        this.sendingSpeed = (sendingSpeed == null) ? 1000 : sendingSpeed;
+        this.avg = (avg == null) ? 1.70 : avg;
+        this.best = (best == null) ? 0.99 : best;
+        this.worst = (worst == null) ? 2.2 : worst;
+        this.loss = (loss == null) ? 0.0 : loss;
         setMac();
         this.connectTo = null;
         if (netCardMap.get(name) != null){

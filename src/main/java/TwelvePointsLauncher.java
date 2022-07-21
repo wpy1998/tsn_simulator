@@ -107,11 +107,18 @@ public class TwelvePointsLauncher {
     }
 
     public void start(int cir){
+        int a, b;
+        a = (int) (cir * 0.9);
+        b = (int) (cir * 0.99);
         for (int i = 0; i < cir; i++){
-//            generateUnicastStream(400);
-//            generateUnicastStream(500);
-            generateUnicastStream(1000000);
-//            generateBroadcastStream(1000000);
+            if (i < a){
+                generateUnicastStream(80000);
+            }else if (i < b){
+                generateUnicastStream(800000);
+            }else {
+                generateUnicastStream(8000000);
+            }
+//            generateBroadcastStream(100000);
         }
         Scanner scanner = new Scanner(System.in);
         while (true){

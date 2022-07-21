@@ -32,7 +32,7 @@ public class TSNSwitch {
 
     public NetCard createNetCard(){
         NetCard netCard = NetCard.builder().name(this.hostName + "-netCard" + netCards.size())
-                .ip(this.ip).build();
+                .owner(hostName).ip(this.ip).build();
         netCards.add(netCard);
         netCardMap.put(netCard.getName(), netCard);
         netCard.setOwner(getHostMerge());

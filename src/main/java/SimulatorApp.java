@@ -24,7 +24,7 @@ public class SimulatorApp {
         Computer computer = new Computer();
 //        SquareLauncher launcher = new SquareLauncher();
 //        launcher.init(computer);
-//        launcher.start(5);
+//        launcher.start(300);
 
         TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
         twelvePointsLauncher.init(computer);

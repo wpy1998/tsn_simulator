@@ -74,6 +74,10 @@ public class TwelvePointsLauncher {
         connectNetCard(tsnSwitch7.createNetCard(), tsnSwitch10.createNetCard());
         connectNetCard(tsnSwitch10.createNetCard(), tsnSwitch3.createNetCard());
 
+//        //extra
+//        connectNetCard(tsnSwitch3.createNetCard(), tsnSwitch7.createNetCard());
+//        connectNetCard(tsnSwitch4.createNetCard(), tsnSwitch10.createNetCard());
+
         networkLauncher = NetworkLauncher.builder().topologyId(topology_id)
                 .urlFront(computer.urls.get("tsn-topology")).build();
         networkLauncher.registerDevice(tsnDevice1);

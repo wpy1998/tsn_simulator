@@ -49,10 +49,10 @@ public class SquareLauncher {
 
         //switch -- switch
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch2.createNetCard());
-//        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
+        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());//
         connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch4.createNetCard());
         connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch3.createNetCard());
-        connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch4.createNetCard());
+//        connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch4.createNetCard());
         connectNetCard(tsnSwitch3.createNetCard(), tsnSwitch4.createNetCard());
 
         networkLauncher = NetworkLauncher.builder().topologyId(topology_id)
@@ -73,15 +73,25 @@ public class SquareLauncher {
         streamLauncher = StreamLauncher.builder()
                 .talkerFront(computer.urls.get("tsn-talker"))
                 .listenerFront(computer.urls.get("tsn-listener")).build();
-//        streamLauncher.registerListenerServer(tsnDevice3, 0);
+        streamLauncher.registerListenerServer(tsnDevice1, 0);
+        streamLauncher.registerListenerServer(tsnDevice3, 0);
         streamLauncher.registerListenerServer(tsnDevice5, 0);
-        streamLauncher.registerListenerServer(tsnDevice6, 0);
-//        streamLauncher.registerListenerServer(tsnDevice8, 0);
+        streamLauncher.registerListenerServer(tsnDevice7, 0);
     }
 
     public void start(int cir){
+        int a, b;
+        a = (int) (cir * 0.9);
+        b = (int) (cir * 0.99);
         for (int i = 0; i < cir; i++){
-            generateStream();
+            if (i < a){
+                generateUnicastStream(80000);
+            }else if (i < b){
+                generateUnicastStream(800000);
+            }else {
+                generateUnicastStream(8000000);
+            }
+//            generateBroadcastStream(100000);
         }
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -153,30 +163,52 @@ public class SquareLauncher {
         }
     }
 
-    private void generateStream(){
-        int body = 1000000;
+    private void generateUnicastStream(int body){
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
-        tsnDevices1.add(tsnDevice5);
+        tsnDevices1.add(tsnDevice1);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();
-        tsnDevices2.add(tsnDevice6);
+        tsnDevices2.add(tsnDevice3);
         List<TSNDevice> tsnDevices3 = new ArrayList<>();
         tsnDevices3.add(tsnDevice5);
-        tsnDevices3.add(tsnDevice6);
+        List<TSNDevice> tsnDevices4 = new ArrayList<>();
+        tsnDevices4.add(tsnDevice7);
 
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices1, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices2, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices1, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices1, (short) 1);
+//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 0);
+//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices1, (short) 1);
+    }
+
+    public void generateBroadcastStream(int body){
+        List<TSNDevice> tsnDevices1 = new ArrayList<>();
+        tsnDevices1.add(tsnDevice3);
+        tsnDevices1.add(tsnDevice5);
+        tsnDevices1.add(tsnDevice7);
+        List<TSNDevice> tsnDevices2 = new ArrayList<>();
+        tsnDevices2.add(tsnDevice1);
+        tsnDevices2.add(tsnDevice5);
+        tsnDevices2.add(tsnDevice7);
+        List<TSNDevice> tsnDevices3 = new ArrayList<>();
+        tsnDevices3.add(tsnDevice1);
+        tsnDevices3.add(tsnDevice3);
+        tsnDevices3.add(tsnDevice7);
+        List<TSNDevice> tsnDevices4 = new ArrayList<>();
+        tsnDevices4.add(tsnDevice1);
+        tsnDevices4.add(tsnDevice3);
+        tsnDevices4.add(tsnDevice5);
 
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
         streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices2, (short) 1);
-
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice1, tsnDevices3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices2, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices2, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 0);
+        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

@@ -116,11 +116,11 @@ public class TwelvePointsLauncher {
         b = (int) (cir * 0.99);
         for (int i = 0; i < cir; i++){
             if (i < a){
-                generateUnicastStream(80000);
+                generateUnicastStream(10000);
             }else if (i < b){
-                generateUnicastStream(800000);
+                generateUnicastStream(1000000);
             }else {
-                generateUnicastStream(8000000);
+                generateUnicastStream(10000000);
             }
 //            generateBroadcastStream(100000);
         }

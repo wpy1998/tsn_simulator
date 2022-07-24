@@ -83,15 +83,17 @@ public class SquareLauncher {
         int a, b;
         a = (int) (cir * 0.9);
         b = (int) (cir * 0.99);
-        for (int i = 0; i < cir; i++){
+        for (int i = cir; i > 0; i--){
             if (i < a){
-                generateUnicastStream(10000);
+//                generateUnicastStream(10000000);
+                generateBroadcastStream(10000000);
             }else if (i < b){
-                generateUnicastStream(1000000);
+//                generateUnicastStream(1000000);
+                generateBroadcastStream(1000000);
             }else {
-                generateUnicastStream(10000000);
+//                generateUnicastStream(10000);
+                generateBroadcastStream(10000);
             }
-//            generateBroadcastStream(100000);
         }
         Scanner scanner = new Scanner(System.in);
         while (true){

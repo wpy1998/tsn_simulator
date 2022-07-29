@@ -111,13 +111,10 @@ public class TwelvePointsLauncher {
     }
 
     public void start(int cir){
-        int a, b;
-        a = (int) (cir * 0.9);
-        b = (int) (cir * 0.99);
         for (int i = 0; i < cir; i++){
-            if (i < a){
+            if (i % 100 < 90){
                 generateUnicastStream(10000);
-            }else if (i < b){
+            }else if (i % 100 < 99){
                 generateUnicastStream(1000000);
             }else {
                 generateUnicastStream(10000000);

@@ -21,12 +21,13 @@ public class TSNDevice {
     private String hostName, ip, hostMerge;
     public List<Header> talkerHeaders;
     public Header listenerHeader;
-    private int uniqueId;
+    private int uniqueId, sendingSpeed;
 
     @Builder
-    public TSNDevice(@NonNull String hostName){
+    public TSNDevice(@NonNull String hostName, Integer sendingSpeed){
         this.hostName = hostName;
         this.uniqueId = 0;
+        this.sendingSpeed = (sendingSpeed == null) ? 1000 : sendingSpeed;
         talkerHeaders = new ArrayList<>();
         if (deviceMap.get(this.hostName) != null){
             this.hostName = this.hostName + "*";
@@ -39,8 +40,8 @@ public class TSNDevice {
     }
 
     private NetCard createNetCard(){
-        netCard = NetCard.builder().name(this.hostName + "-netCard").owner(hostName)
-                .ip(this.ip).build();
+        netCard = NetCard.builder().name(this.hostName).owner(hostName)
+                .ip(this.ip).sendingSpeed(this.sendingSpeed).build();
         netCardMap.put(netCard.getName(), netCard);
         return netCard;
     }
@@ -69,7 +70,15 @@ public class TSNDevice {
 
     public void setIp(){
         int last = allocateIp();
-        this.ip = "10.0.0." + Integer.toString(last);
+        int a, b, c, d;
+        d = last % 256;
+        last /= 256;
+        c = last % 256;
+        last /= 256;
+        b = last % 256;
+        last /= 256;
+        a = last % 256;
+        this.ip = "10." + b + "." + c + "." + d;
     }
 
     public JSONObject getNodeJSONObject(){

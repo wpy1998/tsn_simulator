@@ -41,8 +41,8 @@ public class NetworkLauncher {
         restfulPutInfo1.putInfo(object1.toString());
 
         System.out.println("--register link to controller--");
+//        System.out.println(tsnDevice.getNetCard().getLinkId());
         String url2 = url + "/link/" + tsnDevice.getNetCard().getLinkId();
-//        System.out.println(url2);
         JSONObject link = tsnDevice.getNetCard().getLinkJSONObject();
         RestfulPutInfo restfulPutInfo2 = RestfulPutInfo.builder().url(url2).build();
         JSONArray array2 = new JSONArray();

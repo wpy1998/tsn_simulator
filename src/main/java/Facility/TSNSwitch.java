@@ -31,8 +31,17 @@ public class TSNSwitch {
     }
 
     public NetCard createNetCard(){
-        NetCard netCard = NetCard.builder().name(this.hostName + "-netCard" + netCards.size())
+        NetCard netCard = NetCard.builder().name(this.hostName + "-" + netCards.size())
                 .owner(hostName).ip(this.ip).build();
+        netCards.add(netCard);
+        netCardMap.put(netCard.getName(), netCard);
+        netCard.setOwner(getHostMerge());
+        return netCard;
+    }
+
+    public NetCard createNetCard(int sendingSpeed){
+        NetCard netCard = NetCard.builder().name(this.hostName + "-" + netCards.size())
+                .owner(hostName).ip(this.ip).sendingSpeed(sendingSpeed).build();
         netCards.add(netCard);
         netCardMap.put(netCard.getName(), netCard);
         netCard.setOwner(getHostMerge());

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import static Hardware.Computer.netCardMap;
  */
 public class NetCard {
     private static int mac_id = 1;
+    @Getter
     private int sendingSpeed;
     private double avg, best, worst, loss;
     private String ip, mac, name, connectTo, linkId, owner;
@@ -40,6 +42,7 @@ public class NetCard {
         if (netCardMap.get(name) != null){
             this.name = name + "*";
         }
+//        System.out.println(mac);
         netCardMap.put(this.name, this);
     }
 
@@ -58,17 +61,33 @@ public class NetCard {
     }
 
     public void setMac(){
+        int last = allocateMac(), a, b, c, d, e, f;
+        f = last % 256;
+        last /= 256;
+        e = last % 256;
+        last /= 256;
+        d = last % 256;
+        last /= 256;
+        c = last % 256;
+        last /= 256;
+        b = last % 256;
+        last /= 256;
+        a = last % 256;
+        this.mac = convertTo16(a) + ":" + convertTo16(b) + ":" + convertTo16(c) + ":"
+                + convertTo16(d) + ":" + convertTo16(e) + ":" + convertTo16(f);
+    }
+    private String convertTo16(int id){
         char template[] = {'0', '1', '2', '3', '4', '5', '6', '7',
                 '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-        int last = allocateMac();
-        this.mac = "00:00:00:00:00:";
-        if (last < 16){
-            this.mac = this.mac + "0" + template[last];
-        }else if (last < 256){
-            int a = last / 16;
-            int b = last % 16;
-            this.mac = this.mac + template[a] + template[b];
+        String result = "";
+        if (id < 16){
+            result = result + "0" + template[id];
+        }else if (id < 256){
+            int a = id / 16;
+            int b = id % 16;
+            result = result + template[a] + template[b];
         }
+        return result;
     }
 
     public String getIp(){
@@ -91,7 +110,7 @@ public class NetCard {
         return owner;
     }
 
-    public String  getLinkId(){
+    public String getLinkId(){
         NetCard destPort = netCardMap.get(connectTo);
         this.linkId = getOwner() + "(" + getName() + ")--" + destPort.getOwner() +
                 "(" + destPort.getName() + ")";
@@ -121,7 +140,7 @@ public class NetCard {
 
     public JSONObject getSpeed(){
         JSONObject speed = new JSONObject();
-        speed.put("sending-speed", 1000);
+        speed.put("sending-speed", this.sendingSpeed);
         speed.put("loss", 0.0);
         speed.put("best-transmission-delay", 0.99);
         speed.put("worst-transmission-delay", 2.22);

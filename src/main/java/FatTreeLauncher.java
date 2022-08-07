@@ -38,7 +38,7 @@ public class FatTreeLauncher {
             if (num.length() < 4){
                 num = "0" + num;
             }
-            devices[i] = TSNDevice.builder().hostName("TD" + num).sendingSpeed(1000).build();
+            devices[i] = TSNDevice.builder().hostName("TD" + num).sendingSpeed(10000).build();
         }
         for (int i = 0; i < 16; i++){
             int a, b, c, d;

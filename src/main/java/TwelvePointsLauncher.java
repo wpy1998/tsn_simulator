@@ -111,16 +111,7 @@ public class TwelvePointsLauncher {
     }
 
     public void start(int cir){
-        for (int i = 0; i < cir; i++){
-            if (i % 100 < 90){
-                generateUnicastStream(10000);
-            }else if (i % 100 < 99){
-                generateUnicastStream(1000000);
-            }else {
-                generateUnicastStream(10000000);
-            }
-//            generateBroadcastStream(100000);
-        }
+        generate(cir);
         Scanner scanner = new Scanner(System.in);
         while (true){
             String str = scanner.next();
@@ -195,7 +186,63 @@ public class TwelvePointsLauncher {
                 networkLauncher.removeSwitch(tsnSwitch11);
                 networkLauncher.removeSwitch(tsnSwitch12);
                 break;
+            }else if (str.equals("clear")){
+                for (Header header: tsnDevice1.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice1, header);
+                }
+                tsnDevice1.talkerHeaders.clear();
+
+                for (Header header: tsnDevice2.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice2, header);
+                }
+                tsnDevice2.talkerHeaders.clear();
+
+                for (Header header: tsnDevice3.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice3, header);
+                }
+                tsnDevice3.talkerHeaders.clear();
+
+                for (Header header: tsnDevice4.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice4, header);
+                }
+                tsnDevice4.talkerHeaders.clear();
+
+                for (Header header: tsnDevice5.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice5, header);
+                }
+                tsnDevice5.talkerHeaders.clear();
+
+                for (Header header: tsnDevice6.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice6, header);
+                }
+                tsnDevice6.talkerHeaders.clear();
+
+                for (Header header: tsnDevice7.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice7, header);
+                }
+                tsnDevice7.talkerHeaders.clear();
+
+                for (Header header: tsnDevice8.talkerHeaders){
+                    streamLauncher.removeTalkerStream(tsnDevice8, header);
+                }
+                tsnDevice8.talkerHeaders.clear();
+                System.out.print("please input a number: ");
+                cir = Integer.parseInt(scanner.next());
+                generate(cir);
             }
+        }
+    }
+
+    private void generate(int cir){
+        for (int i = 0; i < cir; i++){
+            if (i % 100 == 99){
+                generateUnicastStream(10000000);
+            }else if (i % 10 == 9){
+                generateUnicastStream(1000000);
+            }else {
+                generateUnicastStream(10000);
+            }
+//            generateBroadcastStream(100000);
         }
     }
 

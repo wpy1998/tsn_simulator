@@ -1,7 +1,5 @@
 import Hardware.Computer;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * @author : wpy
  * @description: TODO
@@ -26,13 +24,13 @@ public class SimulatorApp {
 //        launcher.init(computer);
 //        launcher.start(300);
 
-        TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
-        twelvePointsLauncher.init(computer);
-        twelvePointsLauncher.start(100);
+//        TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
+//        twelvePointsLauncher.init(computer);
+//        twelvePointsLauncher.start(100);
 
-//        FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
-//        fatTreeLauncher.init(computer);
-//        fatTreeLauncher.start(100);
+        FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
+        fatTreeLauncher.init(computer);
+        fatTreeLauncher.start(100);
     }
     //5, 10, 15, 20, 25
 }

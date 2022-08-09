@@ -5,23 +5,25 @@ import Hardware.Computer;
 import Yang.Header;
 import Yang.NetworkLauncher;
 import Yang.StreamLauncher;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Hardware.Computer.netCardMap;
 import static Hardware.Computer.topology_id;
 
 public class FatTreeLauncher {
+    @Setter
+    int k = 8;
     TSNSwitch[] kernelSwitch, podSwitch;
     TSNDevice[] devices;
     StreamLauncher streamLauncher;
     NetworkLauncher networkLauncher;
     public FatTreeLauncher(){
-        kernelSwitch = new TSNSwitch[64];
-        podSwitch = new TSNSwitch[64];
-        devices = new TSNDevice[1024];
+        kernelSwitch = new TSNSwitch[k * k / 4];
+        podSwitch = new TSNSwitch[k * k];
+        devices = new TSNDevice[k * k * k / 4];
     }
 
     public void init(Computer computer){
@@ -31,6 +33,12 @@ public class FatTreeLauncher {
                 num = "0" + num;
             }
             kernelSwitch[i] = TSNSwitch.builder().hostName("KerS" + num).build();
+        }
+        for (int i = 0; i < podSwitch.length; i++){
+            String num = String.valueOf(i);
+            if (num.length() < 2){
+                num = "0" + num;
+            }
             podSwitch[i] = TSNSwitch.builder().hostName("PodS" + num).build();
         }
         for (int i = 0; i < devices.length; i++){
@@ -40,39 +48,39 @@ public class FatTreeLauncher {
             }
             devices[i] = TSNDevice.builder().hostName("TD" + num).sendingSpeed(10000).build();
         }
-        for (int i = 0; i < 16; i++){
-            int a, b, c, d;
-            a = i * 4;
-            b = a + 1;
-            c = b + 1;
-            d = c + 1;
-            connectNetCard(podSwitch[a].createNetCard(), podSwitch[c].createNetCard());
-            connectNetCard(podSwitch[a].createNetCard(), podSwitch[d].createNetCard());
-            connectNetCard(podSwitch[b].createNetCard(), podSwitch[c].createNetCard());
-            connectNetCard(podSwitch[b].createNetCard(), podSwitch[d].createNetCard());
-            for (int j = 0; j < 16; j++){
-                connectNetCard(podSwitch[a].createNetCard(), kernelSwitch[j * 4].createNetCard());
-                connectNetCard(podSwitch[a].createNetCard(), kernelSwitch[j * 4 + 1].createNetCard());
-                connectNetCard(podSwitch[b].createNetCard(), kernelSwitch[j * 4 + 2].createNetCard());
-                connectNetCard(podSwitch[b].createNetCard(), kernelSwitch[j * 4 + 3].createNetCard());
+
+        for (int i = 0; i < k; i++){
+            for (int j = k * i; j < (k * i + k / 2); j++){
+                for (int m = (k * i + k / 2); m < (k * i + k); m++){
+                    connectNetCard(podSwitch[j].createNetCard(), podSwitch[m].createNetCard());
+                }
+                for (int m = 0; m < kernelSwitch.length; m++){
+                    if (m % 4 != j % 4) continue;
+                    connectNetCard(podSwitch[j].createNetCard(), kernelSwitch[m].createNetCard());
+                }
             }
-            for (int j = 0; j < 32; j++){
-                TSNDevice device = devices[i * 64 + j];
-                connectNetCard(podSwitch[c].createNetCard(device.getNetCard().getSendingSpeed()),
-                        device.getNetCard());
-                TSNDevice device1 = devices[i * 64 + j + 32];
-                connectNetCard(podSwitch[d].createNetCard(device1.getNetCard().getSendingSpeed()),
-                        device1.getNetCard());
+            for (int j = 0; j < k / 2; j++){
+                int a = k * i + k / 2 + j;
+                for (int m = 0; m < k / 2; m++){
+                    int b = m + j * k / 2 + i * k * k / 4;
+                    TSNDevice device = devices[b];
+                    connectNetCard(podSwitch[a].createNetCard(device.getNetCard().getSendingSpeed()),
+                            device.getNetCard());
+                }
             }
         }
-//        for (int i = 0; i < 64; i++){
-//            System.out.println("podS.netCard.size = " + podSwitch[i].netCards.size() +
-//                    ", kernelS.netCard.size = " + kernelSwitch[i].netCards.size());
+//        for (int i = 0; i < podSwitch.length; i++){
+//            System.out.println("podS[" + i + "].netCard.size = " + podSwitch[i].netCards.size());
+//        }
+//        for (int i = 0; i < kernelSwitch.length; i++){
+//            System.out.println("kernelS[" + i + "].netCard.size = " + kernelSwitch[i].netCards.size());
 //        }
         networkLauncher = NetworkLauncher.builder().topologyId(topology_id)
                 .urlFront(computer.urls.get("tsn-topology")).build();
         for (int i = 0; i < podSwitch.length; i++){
             networkLauncher.registerSwitch(podSwitch[i]);
+        }
+        for (int i = 0; i < kernelSwitch.length; i++){
             networkLauncher.registerSwitch(kernelSwitch[i]);
         }
         for (int i = 0; i < devices.length; i++){
@@ -81,16 +89,16 @@ public class FatTreeLauncher {
         streamLauncher = StreamLauncher.builder()
                 .talkerFront(computer.urls.get("tsn-talker"))
                 .listenerFront(computer.urls.get("tsn-listener")).build();
+        streamLauncher.registerListenerServer(devices[10], 0);
+        streamLauncher.registerListenerServer(devices[20], 0);
+        streamLauncher.registerListenerServer(devices[30], 0);
+        streamLauncher.registerListenerServer(devices[40], 0);
+        streamLauncher.registerListenerServer(devices[50], 0);
+        streamLauncher.registerListenerServer(devices[60], 0);
+        streamLauncher.registerListenerServer(devices[70], 0);
+        streamLauncher.registerListenerServer(devices[80], 0);
+        streamLauncher.registerListenerServer(devices[90], 0);
         streamLauncher.registerListenerServer(devices[100], 0);
-        streamLauncher.registerListenerServer(devices[200], 0);
-        streamLauncher.registerListenerServer(devices[300], 0);
-        streamLauncher.registerListenerServer(devices[400], 0);
-        streamLauncher.registerListenerServer(devices[500], 0);
-        streamLauncher.registerListenerServer(devices[600], 0);
-        streamLauncher.registerListenerServer(devices[700], 0);
-        streamLauncher.registerListenerServer(devices[800], 0);
-        streamLauncher.registerListenerServer(devices[900], 0);
-        streamLauncher.registerListenerServer(devices[1000], 0);
     }
 
     public void start(int cir){
@@ -101,6 +109,8 @@ public class FatTreeLauncher {
             if (str.equals("exit") || str.equals("quit") || str.equals("stop")){
                 for (int i = 0; i < podSwitch.length; i++){
                     networkLauncher.removeSwitch(podSwitch[i]);
+                }
+                for (int i = 0; i < kernelSwitch.length; i++){
                     networkLauncher.removeSwitch(kernelSwitch[i]);
                 }
                 for (int i = 0; i < devices.length; i++){
@@ -141,36 +151,36 @@ public class FatTreeLauncher {
 
     private void generateUnicastStream(int body){
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
-        tsnDevices1.add(devices[100]);
+        tsnDevices1.add(devices[10]);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();
-        tsnDevices2.add(devices[200]);
+        tsnDevices2.add(devices[20]);
         List<TSNDevice> tsnDevices3 = new ArrayList<>();
-        tsnDevices3.add(devices[300]);
+        tsnDevices3.add(devices[30]);
         List<TSNDevice> tsnDevices4 = new ArrayList<>();
-        tsnDevices4.add(devices[400]);
+        tsnDevices4.add(devices[40]);
         List<TSNDevice> tsnDevices5 = new ArrayList<>();
-        tsnDevices5.add(devices[500]);
+        tsnDevices5.add(devices[50]);
         List<TSNDevice> tsnDevices6 = new ArrayList<>();
-        tsnDevices6.add(devices[600]);
+        tsnDevices6.add(devices[60]);
         List<TSNDevice> tsnDevices7 = new ArrayList<>();
-        tsnDevices7.add(devices[700]);
+        tsnDevices7.add(devices[70]);
         List<TSNDevice> tsnDevices8 = new ArrayList<>();
-        tsnDevices8.add(devices[800]);
+        tsnDevices8.add(devices[80]);
         List<TSNDevice> tsnDevices9 = new ArrayList<>();
-        tsnDevices9.add(devices[900]);
+        tsnDevices9.add(devices[90]);
         List<TSNDevice> tsnDevices10 = new ArrayList<>();
-        tsnDevices10.add(devices[1000]);
+        tsnDevices10.add(devices[100]);
 
         streamLauncher.registerTalkerStream(body, devices[0], tsnDevices1, (short) 0);
         streamLauncher.registerTalkerStream(body, devices[0], tsnDevices1, (short) 1);
-        streamLauncher.registerTalkerStream(body, devices[101], tsnDevices2, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[101], tsnDevices2, (short) 1);
-        streamLauncher.registerTalkerStream(body, devices[201], tsnDevices3, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[201], tsnDevices3, (short) 1);
-        streamLauncher.registerTalkerStream(body, devices[301], tsnDevices4, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[301], tsnDevices4, (short) 1);
-        streamLauncher.registerTalkerStream(body, devices[401], tsnDevices5, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[401], tsnDevices5, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[11], tsnDevices2, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[11], tsnDevices2, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[21], tsnDevices3, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[21], tsnDevices3, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[31], tsnDevices4, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[31], tsnDevices4, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[41], tsnDevices5, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[41], tsnDevices5, (short) 1);
     }
 
     public void generateBroadcastStream(int body){

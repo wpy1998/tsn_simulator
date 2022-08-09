@@ -15,18 +15,19 @@ import static Hardware.Computer.topology_id;
 
 public class FatTreeLauncher {
     @Setter
-    int k = 8;
+    int k;
     TSNSwitch[] kernelSwitch, podSwitch;
     TSNDevice[] devices;
     StreamLauncher streamLauncher;
     NetworkLauncher networkLauncher;
     public FatTreeLauncher(){
-        kernelSwitch = new TSNSwitch[k * k / 4];
-        podSwitch = new TSNSwitch[k * k];
-        devices = new TSNDevice[k * k * k / 4];
+        k = 8;
     }
 
     public void init(Computer computer){
+        kernelSwitch = new TSNSwitch[k * k / 4];
+        podSwitch = new TSNSwitch[k * k];
+        devices = new TSNDevice[k * k * k / 4];
         for (int i = 0; i < kernelSwitch.length; i++){
             String num = String.valueOf(i);
             if (num.length() < 2){

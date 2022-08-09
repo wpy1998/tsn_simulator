@@ -143,7 +143,7 @@ public class FatTreeLauncher {
             }else if (i % 10 == 9){
                 generateUnicastStream(1000000);
             }else {
-                generateUnicastStream(10000);
+                generateUnicastStream(128000);
             }
 //            generateBroadcastStream(100000);
         }

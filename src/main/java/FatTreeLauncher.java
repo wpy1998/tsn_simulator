@@ -97,11 +97,6 @@ public class FatTreeLauncher {
         streamLauncher.registerListenerServer(devices[20], 0);
         streamLauncher.registerListenerServer(devices[30], 0);
         streamLauncher.registerListenerServer(devices[40], 0);
-        streamLauncher.registerListenerServer(devices[50], 0);
-        streamLauncher.registerListenerServer(devices[60], 0);
-        streamLauncher.registerListenerServer(devices[70], 0);
-        streamLauncher.registerListenerServer(devices[80], 0);
-        streamLauncher.registerListenerServer(devices[90], 0);
     }
 
     public void start(int cir){
@@ -163,19 +158,9 @@ public class FatTreeLauncher {
         tsnDevices3.add(devices[30]);
         List<TSNDevice> tsnDevices4 = new ArrayList<>();
         tsnDevices4.add(devices[40]);
-        List<TSNDevice> tsnDevices5 = new ArrayList<>();
-        tsnDevices5.add(devices[50]);
-        List<TSNDevice> tsnDevices6 = new ArrayList<>();
-        tsnDevices6.add(devices[60]);
-        List<TSNDevice> tsnDevices7 = new ArrayList<>();
-        tsnDevices7.add(devices[70]);
-        List<TSNDevice> tsnDevices8 = new ArrayList<>();
-        tsnDevices8.add(devices[80]);
-        List<TSNDevice> tsnDevices9 = new ArrayList<>();
-        tsnDevices9.add(devices[90]);
 
-        streamLauncher.registerTalkerStream(body, devices[16], tsnDevices0, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[16], tsnDevices0, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4], tsnDevices0, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4], tsnDevices0, (short) 1);
 //        streamLauncher.registerTalkerStream(body, devices[71], tsnDevices2, (short) 0);
 //        streamLauncher.registerTalkerStream(body, devices[71], tsnDevices2, (short) 1);
 //        streamLauncher.registerTalkerStream(body, devices[81], tsnDevices3, (short) 0);

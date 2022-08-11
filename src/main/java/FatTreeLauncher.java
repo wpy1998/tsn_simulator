@@ -51,7 +51,7 @@ public class FatTreeLauncher {
         }
 
         for (int i = 0; i < k; i++){//pod k
-            System.out.println("pod" + i);
+//            System.out.println("pod" + i);
             for (int j = k * i; j < (k * i + k / 2); j++){
                 for (int m = (k * i + k / 2); m < (k * i + k); m++){
                     connectNetCard(podSwitch[j].createNetCard(), podSwitch[m].createNetCard());
@@ -96,10 +96,10 @@ public class FatTreeLauncher {
                 .talkerFront(computer.urls.get("tsn-talker"))
                 .listenerFront(computer.urls.get("tsn-listener")).build();
         streamLauncher.registerListenerServer(devices[0], 0);
-        streamLauncher.registerListenerServer(devices[10], 0);
-        streamLauncher.registerListenerServer(devices[20], 0);
-        streamLauncher.registerListenerServer(devices[30], 0);
-        streamLauncher.registerListenerServer(devices[40], 0);
+        streamLauncher.registerListenerServer(devices[k * k / 4], 0);
+        streamLauncher.registerListenerServer(devices[2 * k * k / 4], 0);
+        streamLauncher.registerListenerServer(devices[3 * k * k / 4], 0);
+        streamLauncher.registerListenerServer(devices[4 * k * k / 4], 0);
     }
 
     public void start(int cir){
@@ -141,12 +141,14 @@ public class FatTreeLauncher {
         for (int i = 0; i < cir; i++){
             if (i % 100 == 99){
                 generateUnicastStream(128000000);
+                generateBroadcastStream(128000000);
             }else if (i % 10 == 9){
                 generateUnicastStream(1280000);
+                generateBroadcastStream(1280000);
             }else {
                 generateUnicastStream(128000);
+                generateBroadcastStream(128000);
             }
-//            generateBroadcastStream(100000);
         }
     }
 
@@ -154,16 +156,16 @@ public class FatTreeLauncher {
         List<TSNDevice> tsnDevices0 = new ArrayList<>();
         tsnDevices0.add(devices[0]);
         List<TSNDevice> tsnDevices1 = new ArrayList<>();
-        tsnDevices1.add(devices[10]);
+        tsnDevices1.add(devices[k * k / 4]);
         List<TSNDevice> tsnDevices2 = new ArrayList<>();
-        tsnDevices2.add(devices[20]);
+        tsnDevices2.add(devices[2 * k * k / 4]);
         List<TSNDevice> tsnDevices3 = new ArrayList<>();
-        tsnDevices3.add(devices[30]);
+        tsnDevices3.add(devices[3 * k * k / 4]);
         List<TSNDevice> tsnDevices4 = new ArrayList<>();
-        tsnDevices4.add(devices[40]);
+        tsnDevices4.add(devices[4 * k * k / 4]);
 
-        streamLauncher.registerTalkerStream(body, devices[k * k / 4], tsnDevices0, (short) 0);
-        streamLauncher.registerTalkerStream(body, devices[k * k / 4], tsnDevices0, (short) 1);
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4 + 1], tsnDevices0, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4 + 1], tsnDevices0, (short) 1);
 //        streamLauncher.registerTalkerStream(body, devices[71], tsnDevices2, (short) 0);
 //        streamLauncher.registerTalkerStream(body, devices[71], tsnDevices2, (short) 1);
 //        streamLauncher.registerTalkerStream(body, devices[81], tsnDevices3, (short) 0);
@@ -175,31 +177,14 @@ public class FatTreeLauncher {
     }
 
     public void generateBroadcastStream(int body){
-//        List<TSNDevice> tsnDevices1 = new ArrayList<>();
-//        tsnDevices1.add(tsnDevice3);
-//        tsnDevices1.add(tsnDevice5);
-//        tsnDevices1.add(tsnDevice7);
-//        List<TSNDevice> tsnDevices2 = new ArrayList<>();
-//        tsnDevices2.add(tsnDevice1);
-//        tsnDevices2.add(tsnDevice5);
-//        tsnDevices2.add(tsnDevice7);
-//        List<TSNDevice> tsnDevices3 = new ArrayList<>();
-//        tsnDevices3.add(tsnDevice1);
-//        tsnDevices3.add(tsnDevice3);
-//        tsnDevices3.add(tsnDevice7);
-//        List<TSNDevice> tsnDevices4 = new ArrayList<>();
-//        tsnDevices4.add(tsnDevice1);
-//        tsnDevices4.add(tsnDevice3);
-//        tsnDevices4.add(tsnDevice5);
-//
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice2, tsnDevices1, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices2, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice4, tsnDevices2, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices3, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice6, tsnDevices3, (short) 1);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 0);
-//        streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 1);
+        List<TSNDevice> tsnDevices1 = new ArrayList<>();
+        tsnDevices1.add(devices[k * k / 4]);
+        tsnDevices1.add(devices[k * k * 2 / 4]);
+        tsnDevices1.add(devices[k * k * 3 / 4]);
+        tsnDevices1.add(devices[k * k * 4 / 4]);
+
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4 + 1], tsnDevices1, (short) 0);
+        streamLauncher.registerTalkerStream(body, devices[k * k / 4 + 1], tsnDevices1, (short) 1);
     }
 
     public void connectNetCard(NetCard n1, NetCard n2){

@@ -51,14 +51,16 @@ public class FatTreeLauncher {
         }
 
         for (int i = 0; i < k; i++){//pod k
+            System.out.println("pod" + i);
             for (int j = k * i; j < (k * i + k / 2); j++){
                 for (int m = (k * i + k / 2); m < (k * i + k); m++){
                     connectNetCard(podSwitch[j].createNetCard(), podSwitch[m].createNetCard());
+//                    System.out.printf("podSwitch[%d] connected podSwitch[%d]\n", j, m);
                 }
                 for (int m = 0; m < kernelSwitch.length; m++){
-                    if (m * 2 / k == (j % 8)){
+                    if (m * 2 / k == (j % k)){
                         connectNetCard(podSwitch[j].createNetCard(), kernelSwitch[m].createNetCard());
-//                        System.out.println("m = " + m + ", j = " + j);
+//                        System.out.printf("podSwitch[%d] connected kernelSwitch[%d]\n", j, m);
                     }
                 }
             }
@@ -69,6 +71,7 @@ public class FatTreeLauncher {
                     TSNDevice device = devices[b];
                     connectNetCard(podSwitch[a].createNetCard(device.getNetCard().getSendingSpeed()),
                             device.getNetCard());
+//                    System.out.printf("podSwitch[%d] connected device[%d]\n", a, b);
                 }
             }
         }

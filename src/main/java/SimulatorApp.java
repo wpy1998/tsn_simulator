@@ -29,6 +29,7 @@ public class SimulatorApp {
 //        twelvePointsLauncher.start(100);
 
         FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
+        fatTreeLauncher.setK(8);
         fatTreeLauncher.init(computer);
         fatTreeLauncher.start(100);
     }

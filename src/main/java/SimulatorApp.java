@@ -31,7 +31,7 @@ public class SimulatorApp {
         FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
         fatTreeLauncher.setK(8);
         fatTreeLauncher.init(computer);
-        fatTreeLauncher.start(10);
+        fatTreeLauncher.start(100);
     }
     //5, 10, 15, 20, 25
 }

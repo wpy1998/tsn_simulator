@@ -40,16 +40,15 @@ public class NetworkLauncher {
         object1.put("node", node);
         restfulPutInfo1.putInfo(object1.toString());
 
-        System.out.println("--register link to controller--");
-//        System.out.println(tsnDevice.getNetCard().getLinkId());
-        String url2 = url + "/link/" + tsnDevice.getNetCard().getLinkId();
-        JSONObject link = tsnDevice.getNetCard().getLinkJSONObject();
-        RestfulPutInfo restfulPutInfo2 = RestfulPutInfo.builder().url(url2).build();
-        JSONArray array2 = new JSONArray();
-        array2.add(link);
-        JSONObject object2 = new JSONObject();
-        object2.put("link", link);
-        restfulPutInfo2.putInfo(object2.toString());
+//        System.out.println("--register link to controller--");
+//        String url2 = url + "/link/" + tsnDevice.getNetCard().getLinkId();
+//        JSONObject link = tsnDevice.getNetCard().getLinkJSONObject();
+//        RestfulPutInfo restfulPutInfo2 = RestfulPutInfo.builder().url(url2).build();
+//        JSONArray array2 = new JSONArray();
+//        array2.add(link);
+//        JSONObject object2 = new JSONObject();
+//        object2.put("link", link);
+//        restfulPutInfo2.putInfo(object2.toString());
     }
 
     public void registerSwitch(TSNSwitch tsnSwitch){
@@ -90,12 +89,12 @@ public class NetworkLauncher {
                 .build();
         restfulDeleteInfo.deleteInfo();
 
-        String url1 = this.urlFront + "topology/" + topologyId + "/link/"
-                + tsnDevice.getNetCard().getLinkId();
-        System.out.println("--remove link from controller--");
-        RestfulDeleteInfo restfulDeleteInfo1 = RestfulDeleteInfo.builder()
-                .url(url1).build();
-        restfulDeleteInfo1.deleteInfo();
+//        String url1 = this.urlFront + "topology/" + topologyId + "/link/"
+//                + tsnDevice.getNetCard().getLinkId();
+//        System.out.println("--remove link from controller--");
+//        RestfulDeleteInfo restfulDeleteInfo1 = RestfulDeleteInfo.builder()
+//                .url(url1).build();
+//        restfulDeleteInfo1.deleteInfo();
 
     }
 

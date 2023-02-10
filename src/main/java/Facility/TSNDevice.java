@@ -4,7 +4,9 @@ import Yang.Header;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
+import sun.nio.ch.Net;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,13 @@ import static Hardware.Computer.*;
  * @date : 5/1/22 7:10 AM
  */
 public class TSNDevice {
-    private NetCard netCard = null;
+    private NetworkCard networkCard = null;
     private String hostName, ip, hostMerge;
     public List<Header> talkerHeaders;
     public Header listenerHeader;
-    private int uniqueId, sendingSpeed;
+    private int uniqueId;
+    @Getter
+    private int sendingSpeed;
 
     @Builder
     public TSNDevice(@NonNull String hostName, Integer sendingSpeed){
@@ -36,18 +40,19 @@ public class TSNDevice {
         deviceMap.put(this.hostName, this);
         createNetCard();
         setHostMerge();
-        netCard.setOwner(getHostMerge());
     }
 
-    private NetCard createNetCard(){
-        netCard = NetCard.builder().name(this.hostName).owner(hostName)
-                .ip(this.ip).sendingSpeed(this.sendingSpeed).build();
-        netCardMap.put(netCard.getName(), netCard);
-        return netCard;
+    private void createNetCard(){
+        networkCard = NetworkCard.builder()
+                .name("ens33")
+                .owner(hostName)
+                .ip(this.ip).build();
+        networkCardMap.put(this.hostName + networkCard.getMac() + networkCard.getName(),
+                networkCard);
     }
 
-    public NetCard getNetCard(){
-        return netCard;
+    public NetworkCard getNetworkCard(){
+        return networkCard;
     }
 
     public int allocateUniqueId(){
@@ -57,7 +62,7 @@ public class TSNDevice {
     }
 
     private void setHostMerge(){
-        hostMerge = hostName + netCard.getMac();
+        hostMerge = hostName + networkCard.getMac();
     }
 
     public String getHostMerge(){
@@ -85,32 +90,34 @@ public class TSNDevice {
         JSONObject node = new JSONObject();
         node.put("node-id", getHostMerge());
         node.put("node-type", "device");
-        node.put("id", this.netCard.getMac());
+        node.put("id", this.networkCard.getMac());
 
         JSONArray addresses = new JSONArray();
         JSONObject address = new JSONObject();
         address.put("id", 0);
-        address.put("mac", netCard.getMac());
-        address.put("ip", netCard.getIp());
+        address.put("mac", networkCard.getMac());
+        address.put("ip", networkCard.getIp());
         address.put("first-seen", firstSeen);
         address.put("last-seen", System.currentTimeMillis());
         addresses.add(address);
         node.put("addresses", addresses);
 
         JSONArray terminationPoint = new JSONArray();
-        JSONObject tp = new JSONObject();
-        tp.put("tp-id", netCard.getName());
-        terminationPoint.add(tp);
-        node.put("termination-point", terminationPoint);
-
         JSONArray attachmentPoint = new JSONArray();
-        JSONObject ap = new JSONObject();
-        ap.put("tp-id", netCard.getName());
-        ap.put("corresponding-tp", netCard.getConnectTo());
-        ap.put("active", true);
-        attachmentPoint.add(ap);
-        node.put("attachment-points", attachmentPoint);
+        for (int i = 0; i < networkCard.getPorts().size(); i++){
+            Port port = networkCard.getPorts().get(i);
+            JSONObject tp = new JSONObject();
+            tp.put("tp-id", port.getName());
+            terminationPoint.add(tp);
 
+            JSONObject ap = new JSONObject();
+            ap.put("tp-id", port.getName());
+            ap.put("corresponding-tp", port.getConnectTo());
+            ap.put("active", true);
+            attachmentPoint.add(ap);
+        }
+        node.put("termination-point", terminationPoint);
+        node.put("attachment-points", attachmentPoint);
         return node;
     }
 }

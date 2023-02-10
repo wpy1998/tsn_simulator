@@ -1,4 +1,4 @@
-import Facility.NetCard;
+import Facility.NetworkCard;
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import Hardware.Computer;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Hardware.Computer.networkCardMap;
 import static Hardware.Computer.topology_id;
 
 public class FatTreeLauncher {
@@ -54,12 +55,12 @@ public class FatTreeLauncher {
 //            System.out.println("pod" + i);
             for (int j = k * i; j < (k * i + k / 2); j++){
                 for (int m = (k * i + k / 2); m < (k * i + k); m++){
-                    connectNetCard(podSwitch[j].createNetCard(), podSwitch[m].createNetCard());
+                    connectNetCard(podSwitch[j].getLan(), podSwitch[m].getLan());
 //                    System.out.printf("podSwitch[%d] connected podSwitch[%d]\n", j, m);
                 }
                 for (int m = 0; m < kernelSwitch.length; m++){
                     if (m * 2 / k == (j % k)){
-                        connectNetCard(podSwitch[j].createNetCard(), kernelSwitch[m].createNetCard());
+                        connectNetCard(podSwitch[j].getLan(), kernelSwitch[m].getLan());
 //                        System.out.printf("podSwitch[%d] connected kernelSwitch[%d]\n", j, m);
                     }
                 }
@@ -69,8 +70,8 @@ public class FatTreeLauncher {
                 for (int m = 0; m < k / 2; m++){
                     int b = m + j * k / 2 + i * k * k / 4;
                     TSNDevice device = devices[b];
-                    connectNetCard(podSwitch[a].createNetCard(device.getNetCard().getSendingSpeed()),
-                            device.getNetCard());
+                    connectNetCard(podSwitch[a].getLan(), device.getNetworkCard(),
+                            device.getSendingSpeed());
 //                    System.out.printf("podSwitch[%d] connected device[%d]\n", a, b);
                 }
             }
@@ -187,8 +188,12 @@ public class FatTreeLauncher {
         streamLauncher.registerTalkerStream(body, devices[k * k / 4 + 1], tsnDevices1, (short) 1);
     }
 
-    public void connectNetCard(NetCard n1, NetCard n2){
-        n1.setConnectTo(n2.getName());
-        n2.setConnectTo(n1.getName());
+    public void connectNetCard(NetworkCard n1, NetworkCard n2){
+        connectNetCard(n1, n2, 1000);
+    }
+
+    public void connectNetCard(NetworkCard n1, NetworkCard n2, int speed){
+        n1.setConnectTo(n2.getOwner() + n2.getMac() + n2.getName(), speed);
+        n2.setConnectTo(n1.getOwner() + n1.getMac() + n1.getName(), speed);
     }
 }

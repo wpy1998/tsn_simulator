@@ -3,6 +3,7 @@ package Facility;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -16,8 +17,10 @@ import static Hardware.Computer.*;
  * @date : 5/1/22 7:10 AM
  */
 public class TSNSwitch {
-    public List<NetCard> netCards;
-    private String hostName, ip, hostMerge;
+    public List<Port> ports;
+    private String hostName, ip_lan, ip_wan, hostMerge;
+    @Getter
+    private NetworkCard wan, lan;
 
     @Builder
     public TSNSwitch(@NonNull String hostName){
@@ -25,56 +28,57 @@ public class TSNSwitch {
         if (switchMap.get(this.hostName) != null){
             this.hostName = this.hostName + "*";
         }
-        setIp();
+        setIp_lan();
+        setIp_wan();
         switchMap.put(this.hostName, this);
-        netCards = new ArrayList<>();
+        ports = new ArrayList<>();
+        createNetworkCard();
     }
 
-    public NetCard createNetCard(){
-        NetCard netCard = NetCard.builder().name(this.hostName + "-" + netCards.size())
-                .owner(hostName).ip(this.ip).build();
-        netCards.add(netCard);
-        netCardMap.put(netCard.getName(), netCard);
-        netCard.setOwner(getHostMerge());
-        return netCard;
-    }
-
-    public NetCard createNetCard(int sendingSpeed){
-        NetCard netCard = NetCard.builder().name(this.hostName + "-" + netCards.size())
-                .owner(hostName).ip(this.ip).sendingSpeed(sendingSpeed).build();
-        netCards.add(netCard);
-        netCardMap.put(netCard.getName(), netCard);
-        netCard.setOwner(getHostMerge());
-        return netCard;
+    public void createNetworkCard(){
+        wan = NetworkCard.builder().name("eno0").owner(hostName)
+                .ip(this.ip_wan).build();
+        lan = NetworkCard.builder().name("eno2").owner(hostName)
+                .ip(this.ip_lan).build();
+        networkCardMap.put(this.hostName + lan.getMac() + wan.getName(), wan);
+        networkCardMap.put(this.hostName + lan.getMac() + lan.getName(), lan);
     }
 
     public String getHostMerge(){
-        if (netCards.size() == 0){
-            hostMerge = hostName;
-        }else {
-            hostMerge = hostName + netCards.get(0).getMac();
-        }
+        hostMerge = hostName + lan.getMac();
         return hostMerge;
     }
 
-    public void setIp(){
+    public void setIp_lan(){
         int last = allocateIp();
-        this.ip = "10.0.0." + Integer.toString(last);
+        this.ip_lan = "10.0.0." + last;
+    }
+
+    public void setIp_wan(){
+        int last = allocateIp();
+        this.ip_wan = "10.0.0." + last;
     }
 
     public JSONObject getNodeJSONObject(){
         JSONObject node = new JSONObject();
         node.put("node-id", getHostMerge());
         node.put("node-type", "switch");
-        node.put("id", netCards.get(0).getMac());
+        node.put("id", lan.getMac());
         node.put("port", 830);
         node.put("username", "admin");
         node.put("password", "admin");
 
         JSONArray terminationPoint = new JSONArray();
-        for (NetCard netCard: netCards){
+        for (int i = 0; i < wan.getPorts().size(); i++){
+            Port port = wan.getPorts().get(i);
             JSONObject tp = new JSONObject();
-            tp.put("tp-id", netCard.getName());
+            tp.put("tp-id", port.getName());
+            terminationPoint.add(tp);
+        }
+        for (int i = 0; i < lan.getPorts().size(); i++){
+            Port port = lan.getPorts().get(i);
+            JSONObject tp = new JSONObject();
+            tp.put("tp-id", port.getName());
             terminationPoint.add(tp);
         }
         node.put("termination-point", terminationPoint);

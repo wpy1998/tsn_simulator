@@ -1,4 +1,5 @@
-import Facility.NetCard;
+import Facility.NetworkCard;
+import Facility.Port;
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import Hardware.Computer;
@@ -47,32 +48,32 @@ public class TwelvePointsLauncher {
         tsnDevice8 = TSNDevice.builder().hostName("D8").build();
 
         //switch - - device
-        connectNetCard(tsnSwitch1.createNetCard(), tsnDevice1.getNetCard());
-        connectNetCard(tsnSwitch1.createNetCard(), tsnDevice2.getNetCard());
-        connectNetCard(tsnSwitch5.createNetCard(), tsnDevice3.getNetCard());
-        connectNetCard(tsnSwitch5.createNetCard(), tsnDevice4.getNetCard());
-        connectNetCard(tsnSwitch9.createNetCard(), tsnDevice5.getNetCard());
-        connectNetCard(tsnSwitch9.createNetCard(), tsnDevice6.getNetCard());
-        connectNetCard(tsnSwitch11.createNetCard(), tsnDevice7.getNetCard());
-        connectNetCard(tsnSwitch11.createNetCard(), tsnDevice8.getNetCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnDevice1.getNetworkCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnDevice2.getNetworkCard());
+        connectNetCard(tsnSwitch5.getLan(), tsnDevice3.getNetworkCard());
+        connectNetCard(tsnSwitch5.getLan(), tsnDevice4.getNetworkCard());
+        connectNetCard(tsnSwitch9.getLan(), tsnDevice5.getNetworkCard());
+        connectNetCard(tsnSwitch9.getLan(), tsnDevice6.getNetworkCard());
+        connectNetCard(tsnSwitch11.getLan(), tsnDevice7.getNetworkCard());
+        connectNetCard(tsnSwitch11.getLan(), tsnDevice8.getNetworkCard());
 
         //switch - - switch
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch2.createNetCard());
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());
-        connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch3.createNetCard());
-        connectNetCard(tsnSwitch4.createNetCard(), tsnSwitch5.createNetCard());
-        connectNetCard(tsnSwitch5.createNetCard(), tsnSwitch6.createNetCard());
-        connectNetCard(tsnSwitch6.createNetCard(), tsnSwitch7.createNetCard());
-        connectNetCard(tsnSwitch7.createNetCard(), tsnSwitch8.createNetCard());
-        connectNetCard(tsnSwitch8.createNetCard(), tsnSwitch9.createNetCard());
-        connectNetCard(tsnSwitch9.createNetCard(), tsnSwitch10.createNetCard());
-        connectNetCard(tsnSwitch10.createNetCard(), tsnSwitch11.createNetCard());
-        connectNetCard(tsnSwitch11.createNetCard(), tsnSwitch12.createNetCard());
-        connectNetCard(tsnSwitch12.createNetCard(), tsnSwitch10.createNetCard());
-        connectNetCard(tsnSwitch3.createNetCard(), tsnSwitch4.createNetCard());
-        connectNetCard(tsnSwitch4.createNetCard(), tsnSwitch7.createNetCard());
-        connectNetCard(tsnSwitch7.createNetCard(), tsnSwitch10.createNetCard());
-        connectNetCard(tsnSwitch10.createNetCard(), tsnSwitch3.createNetCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnSwitch2.getLan());
+        connectNetCard(tsnSwitch1.getLan(), tsnSwitch3.getLan());
+        connectNetCard(tsnSwitch2.getLan(), tsnSwitch3.getLan());
+        connectNetCard(tsnSwitch4.getLan(), tsnSwitch5.getLan());
+        connectNetCard(tsnSwitch5.getLan(), tsnSwitch6.getLan());
+        connectNetCard(tsnSwitch6.getLan(), tsnSwitch7.getLan());
+        connectNetCard(tsnSwitch7.getLan(), tsnSwitch8.getLan());
+        connectNetCard(tsnSwitch8.getLan(), tsnSwitch9.getLan());
+        connectNetCard(tsnSwitch9.getLan(), tsnSwitch10.getLan());
+        connectNetCard(tsnSwitch10.getLan(), tsnSwitch11.getLan());
+        connectNetCard(tsnSwitch11.getLan(), tsnSwitch12.getLan());
+        connectNetCard(tsnSwitch12.getLan(), tsnSwitch10.getLan());
+        connectNetCard(tsnSwitch3.getLan(), tsnSwitch4.getLan());
+        connectNetCard(tsnSwitch4.getLan(), tsnSwitch7.getLan());
+        connectNetCard(tsnSwitch7.getLan(), tsnSwitch10.getLan());
+        connectNetCard(tsnSwitch10.getLan(), tsnSwitch3.getLan());
 
 //        //extra
 //        connectNetCard(tsnSwitch3.createNetCard(), tsnSwitch7.createNetCard());
@@ -294,8 +295,12 @@ public class TwelvePointsLauncher {
         streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 1);
     }
 
-    public void connectNetCard(NetCard n1, NetCard n2){
-        n1.setConnectTo(n2.getName());
-        n2.setConnectTo(n1.getName());
+    public void connectNetCard(NetworkCard n1, NetworkCard n2){
+        connectNetCard(n1, n2, 1000);
+    }
+
+    public void connectNetCard(NetworkCard n1, NetworkCard n2, int speed){
+        n1.setConnectTo(n2.getName(), speed);
+        n2.setConnectTo(n1.getName(), speed);
     }
 }

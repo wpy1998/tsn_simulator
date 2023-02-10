@@ -1,4 +1,5 @@
-import Facility.NetCard;
+import Facility.NetworkCard;
+import Facility.Port;
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import Hardware.Computer;
@@ -38,22 +39,22 @@ public class SquareLauncher {
         tsnSwitch4 = TSNSwitch.builder().hostName("S4").build();
 
         //switch - - device
-        connectNetCard(tsnSwitch1.createNetCard(), tsnDevice1.getNetCard());
-        connectNetCard(tsnSwitch1.createNetCard(), tsnDevice2.getNetCard());
-        connectNetCard(tsnSwitch2.createNetCard(), tsnDevice3.getNetCard());
-        connectNetCard(tsnSwitch2.createNetCard(), tsnDevice4.getNetCard());
-        connectNetCard(tsnSwitch3.createNetCard(), tsnDevice5.getNetCard());
-        connectNetCard(tsnSwitch3.createNetCard(), tsnDevice6.getNetCard());
-        connectNetCard(tsnSwitch4.createNetCard(), tsnDevice7.getNetCard());
-        connectNetCard(tsnSwitch4.createNetCard(), tsnDevice8.getNetCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnDevice1.getNetworkCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnDevice2.getNetworkCard());
+        connectNetCard(tsnSwitch2.getLan(), tsnDevice3.getNetworkCard());
+        connectNetCard(tsnSwitch2.getLan(), tsnDevice4.getNetworkCard());
+        connectNetCard(tsnSwitch3.getLan(), tsnDevice5.getNetworkCard());
+        connectNetCard(tsnSwitch3.getLan(), tsnDevice6.getNetworkCard());
+        connectNetCard(tsnSwitch4.getLan(), tsnDevice7.getNetworkCard());
+        connectNetCard(tsnSwitch4.getLan(), tsnDevice8.getNetworkCard());
 
         //switch -- switch
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch2.createNetCard());
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch3.createNetCard());//
-        connectNetCard(tsnSwitch1.createNetCard(), tsnSwitch4.createNetCard());
-        connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch3.createNetCard());
-//        connectNetCard(tsnSwitch2.createNetCard(), tsnSwitch4.createNetCard());
-        connectNetCard(tsnSwitch3.createNetCard(), tsnSwitch4.createNetCard());
+        connectNetCard(tsnSwitch1.getLan(), tsnSwitch2.getLan());
+        connectNetCard(tsnSwitch1.getLan(), tsnSwitch3.getLan());//
+        connectNetCard(tsnSwitch1.getLan(), tsnSwitch4.getLan());
+        connectNetCard(tsnSwitch2.getLan(), tsnSwitch3.getLan());
+//        connectNetCard(tsnSwitch2.getLan(), tsnSwitch4.getLan());
+        connectNetCard(tsnSwitch3.getLan(), tsnSwitch4.getLan());
 
         networkLauncher = NetworkLauncher.builder().topologyId(topology_id)
                 .urlFront(computer.urls.get("tsn-topology")).build();
@@ -208,8 +209,12 @@ public class SquareLauncher {
         streamLauncher.registerTalkerStream(body, tsnDevice8, tsnDevices4, (short) 1);
     }
 
-    public void connectNetCard(NetCard n1, NetCard n2){
-        n1.setConnectTo(n2.getName());
-        n2.setConnectTo(n1.getName());
+    public void connectNetCard(NetworkCard n1, NetworkCard n2){
+        connectNetCard(n1, n2, 1000);
+    }
+
+    public void connectNetCard(NetworkCard n1, NetworkCard n2, int speed){
+        n1.setConnectTo(n2.getName(), speed);
+        n2.setConnectTo(n1.getName(), speed);
     }
 }

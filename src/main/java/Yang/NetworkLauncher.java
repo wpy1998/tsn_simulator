@@ -1,6 +1,6 @@
 package Yang;
 
-import Facility.NetCard;
+import Facility.Port;
 import Facility.TSNDevice;
 import Facility.TSNSwitch;
 import RestfulAPI.RestfulDeleteInfo;
@@ -67,10 +67,10 @@ public class NetworkLauncher {
         object1.put("node", node);
         restfulPutInfo1.putInfo(object1.toString());
 
-        for (NetCard netCard: tsnSwitch.netCards){
+        for (Port port : tsnSwitch.ports){
             System.out.println("--register link to controller--");
-            String url2 = url + "/link/" + netCard.getLinkId();
-            JSONObject link = netCard.getLinkJSONObject();
+            String url2 = url + "/link/" + port.getLinkId();
+            JSONObject link = port.getLinkJSONObject();
             RestfulPutInfo restfulPutInfo2 = RestfulPutInfo.builder().url(url2).build();
             JSONArray array2 = new JSONArray();
             array2.add(link);
@@ -105,9 +105,9 @@ public class NetworkLauncher {
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
         restfulDeleteInfo.deleteInfo();
 
-        for (NetCard netCard: tsnSwitch.netCards){
+        for (Port port : tsnSwitch.ports){
             String url1 = this.urlFront + "topology/" + topologyId + "/link/"
-                    + netCard.getLinkId();
+                    + port.getLinkId();
             System.out.println("--remove link from controller--");
             RestfulDeleteInfo restfulDeleteInfo1 = RestfulDeleteInfo.builder()
                     .url(url1).build();

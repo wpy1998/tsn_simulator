@@ -8,7 +8,6 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.NonNull;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +46,13 @@ public class StreamLauncher {
         for (int i = 0; i < dest.size(); i++){
             TSNDevice device = dest.get(i);
             ips.add(device.getIp());
-            macs.add(device.getNetCard().getMac().replace(":", "-"));
+            macs.add(device.getNetworkCard().getMac().replace(":", "-"));
         }
         Header header = Header.builder()
                 .uniqueId(convertUniqueID(source.allocateUniqueId()))
                 .rank(rank)
-                .mac(source.getNetCard().getMac().replace(":", "-"))
-                .ipv4(source.getNetCard().getIp())
+                .mac(source.getNetworkCard().getMac().replace(":", "-"))
+                .ipv4(source.getNetworkCard().getIp())
                 .hostName(source.getHostMerge())
                 .dest_ip(ips)
                 .dest_mac(macs)
@@ -77,8 +76,8 @@ public class StreamLauncher {
         }
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0)
-                .mac(device.getNetCard().getMac().replace(":", "-"))
-                .ipv4(device.getNetCard().getIp())
+                .mac(device.getNetworkCard().getMac().replace(":", "-"))
+                .ipv4(device.getNetworkCard().getIp())
                 .hostName(device.getHostMerge())
                 .build();
         device.listenerHeader = header;

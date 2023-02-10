@@ -1,12 +1,11 @@
 package Hardware;
 
+import Facility.NetworkCard;
 import Facility.TSNDevice;
-import Facility.NetCard;
+import Facility.Port;
 import Facility.TSNSwitch;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +15,8 @@ import java.util.Map;
  */
 public class Computer {
     public static final String topology_id = "tsn-simulator-network";
-    public static Map<String, NetCard> netCardMap = new HashMap<>();
+    public static Map<String, Port> portMap = new HashMap<>();
+    public static Map<String, NetworkCard> networkCardMap = new HashMap<>();
     public static Map<String, TSNDevice> deviceMap = new HashMap<>();
     public static Map<String, TSNSwitch> switchMap = new HashMap<>();
     public static long firstSeen = System.currentTimeMillis();

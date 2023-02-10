@@ -17,7 +17,6 @@ import static Hardware.Computer.*;
  * @date : 5/1/22 7:10 AM
  */
 public class TSNSwitch {
-    public List<Port> ports;
     private String hostName, ip_lan, ip_wan, hostMerge;
     @Getter
     private NetworkCard wan, lan;
@@ -31,7 +30,6 @@ public class TSNSwitch {
         setIp_lan();
         setIp_wan();
         switchMap.put(this.hostName, this);
-        ports = new ArrayList<>();
         createNetworkCard();
     }
 

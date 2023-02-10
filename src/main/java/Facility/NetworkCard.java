@@ -33,8 +33,10 @@ public class NetworkCard {
 //        System.out.println(dest.owner + dest.getMac() + dest.getName());
         String linkName = getOwner() + getMac() + "(" + getName() + ")--" +
                 dest.getOwner() + dest.getMac() + "(" + dest.getName() + ")";
+        String flag = dest.getOwner() + dest.getMac() + "(" + dest.getName() + ")--" +
+                getOwner() + getMac() + "(" + getName() + ")";
         if (portMap.get(linkName) == null){
-            Port port = createPort(linkName, dest.getName(), name, speed);
+            Port port = createPort(linkName, flag, name, speed);
             portMap.put(linkName, port);
         }
     }

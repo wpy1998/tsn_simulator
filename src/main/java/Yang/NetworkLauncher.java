@@ -67,7 +67,7 @@ public class NetworkLauncher {
         object1.put("node", node);
         restfulPutInfo1.putInfo(object1.toString());
 
-        for (Port port : tsnSwitch.ports){
+        for (Port port : tsnSwitch.getLan().getPorts()){
             System.out.println("--register link to controller--");
             String url2 = url + "/link/" + port.getLinkId();
             JSONObject link = port.getLinkJSONObject();
@@ -105,7 +105,7 @@ public class NetworkLauncher {
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
         restfulDeleteInfo.deleteInfo();
 
-        for (Port port : tsnSwitch.ports){
+        for (Port port : tsnSwitch.getLan().getPorts()){
             String url1 = this.urlFront + "topology/" + topologyId + "/link/"
                     + port.getLinkId();
             System.out.println("--remove link from controller--");

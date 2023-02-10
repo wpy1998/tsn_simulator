@@ -16,7 +16,7 @@ public class Port {
     @Getter
     private int sendingSpeed;
     private double avg, best, worst, loss;
-    private String ip, mac, name, connectTo, linkId, owner, fatherNetworkCard, hostMerge;
+    private String ip, mac, name, connectTo, linkId, owner, fatherNetworkCard;
 
     @Builder
     public Port(@NonNull String name, @NonNull String ip,
@@ -87,10 +87,10 @@ public class Port {
         link.put("link-id", linkId);
         JSONObject source = new JSONObject();
         source.put("source-tp", getName());
-        source.put("source-node", this.owner);
+        source.put("source-node", this.owner + getMac());
         link.put("source", source);
         JSONObject destination = new JSONObject();
-        destination.put("dest-node", dest.getOwner());
+        destination.put("dest-node", dest.getOwner() + dest.getMac());
         destination.put("dest-tp", dest.getName());
         link.put("destination", destination);
         link.put("speed", getSpeed());

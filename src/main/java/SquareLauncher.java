@@ -214,7 +214,7 @@ public class SquareLauncher {
     }
 
     public void connectNetCard(NetworkCard n1, NetworkCard n2, int speed){
-        n1.setConnectTo(n2.getName(), speed);
-        n2.setConnectTo(n1.getName(), speed);
+        n1.setConnectTo(n2.getOwner() + n2.getMac() + n2.getName(), speed);
+        n2.setConnectTo(n1.getOwner() + n1.getMac() + n1.getName(), speed);
     }
 }

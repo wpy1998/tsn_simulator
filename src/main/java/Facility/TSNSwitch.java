@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static Hardware.Computer.*;
 
 /**
@@ -22,13 +19,12 @@ public class TSNSwitch {
     private NetworkCard wan, lan;
 
     @Builder
-    public TSNSwitch(@NonNull String hostName){
+    public TSNSwitch(@NonNull String hostName, String mac){
         this.hostName = hostName;
         if (switchMap.get(this.hostName) != null){
             this.hostName = this.hostName + "*";
         }
-        setIp_lan();
-        setIp_wan();
+        initIP();
         switchMap.put(this.hostName, this);
         createNetworkCard();
     }
@@ -47,14 +43,29 @@ public class TSNSwitch {
         return hostMerge;
     }
 
-    public void setIp_lan(){
+    public void initIP(){
         int last = allocateIp();
         this.ip_lan = "10.0.0." + last;
+        last = allocateIp();
+        this.ip_wan = "10.0.0." + last;
     }
 
-    public void setIp_wan(){
-        int last = allocateIp();
-        this.ip_wan = "10.0.0." + last;
+    public void setIp_lan(String ip_lan){
+        this.ip_lan = ip_lan;
+        lan.setIp(ip_lan);
+    }
+
+    public void setIp_wan(String ip_wan){
+        this.ip_wan = ip_wan;
+        wan.setIp(ip_wan);
+    }
+
+    public void setMac_lan(String mac){
+        lan.setMac(mac);
+    }
+
+    public void setMac_wan(String mac){
+        wan.setMac(mac);
     }
 
     public JSONObject getNodeJSONObject(){

@@ -20,7 +20,7 @@ public class NetworkCard {
         this.name = name;
         this.ip = ip;
         this.owner = owner;
-        setMac();
+        initMac();
         ports = new ArrayList<>();
     }
 
@@ -69,7 +69,7 @@ public class NetworkCard {
         return result;
     }
 
-    public void setMac(){
+    private void initMac(){
         int last = allocateMac(), a, b, c, d, e, f;
         f = last % 256;
         last /= 256;
@@ -84,6 +84,20 @@ public class NetworkCard {
         a = last % 256;
         this.mac = convertTo16(a) + ":" + convertTo16(b) + ":" + convertTo16(c) + ":"
                 + convertTo16(d) + ":" + convertTo16(e) + ":" + convertTo16(f);
+    }
+
+    public void setIp(String ip){
+        this.ip = ip;
+        for (Port port: this.ports){
+            port.setIp(ip);
+        }
+    }
+
+    public void setMac(String mac){
+        this.mac = mac;
+        for (Port port: this.ports){
+            port.setMac(this.mac);
+        }
     }
 
     private String convertTo16(int id){

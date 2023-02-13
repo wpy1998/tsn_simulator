@@ -1,4 +1,5 @@
 import Hardware.Computer;
+import Topology.SquareLauncher;
 
 /**
  * @author : wpy
@@ -24,11 +25,11 @@ public class SimulatorApp {
         launcher.init(computer);
         launcher.start(1000);
 
-//        TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
+//        Topology.TwelvePointsLauncher twelvePointsLauncher = new Topology.TwelvePointsLauncher();
 //        twelvePointsLauncher.init(computer);
 //        twelvePointsLauncher.start(100);
 
-//        FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
+//        Topology.FatTreeLauncher fatTreeLauncher = new Topology.FatTreeLauncher();
 //        fatTreeLauncher.setK(8);
 //        fatTreeLauncher.init(computer);
 //        fatTreeLauncher.start(100);

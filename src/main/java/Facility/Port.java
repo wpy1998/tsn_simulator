@@ -76,6 +76,14 @@ public class Port {
         return linkId;
     }
 
+    public void setIp(String ip){
+        this.ip = ip;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
+    }
+
     public JSONObject getLinkJSONObject(){
         Port dest = portMap.get(connectTo);
         if (dest == null){

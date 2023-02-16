@@ -25,10 +25,8 @@ public class NetworkLauncher {
 
     public void registerDevice(TSNDevice tsnDevice){
         String url = this.urlFront + "topology/" + topologyId;
-
         System.out.println("--register node to controller--");
-        String url1 = url + "/node/" + tsnDevice.getHostMerge();
-//        System.out.println(url1);
+        String url1 = url + "/node/" + tsnDevice.getMac().replace(":", "-");
         JSONObject node = tsnDevice.getNodeJSONObject();
         RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder()
                 .url(url1)
@@ -39,23 +37,13 @@ public class NetworkLauncher {
         JSONObject object1 = new JSONObject();
         object1.put("node", node);
         restfulPutInfo1.putInfo(object1.toString());
-
-//        System.out.println("--register link to controller--");
-//        String url2 = url + "/link/" + tsnDevice.getNetCard().getLinkId();
-//        JSONObject link = tsnDevice.getNetCard().getLinkJSONObject();
-//        RestfulPutInfo restfulPutInfo2 = RestfulPutInfo.builder().url(url2).build();
-//        JSONArray array2 = new JSONArray();
-//        array2.add(link);
-//        JSONObject object2 = new JSONObject();
-//        object2.put("link", link);
-//        restfulPutInfo2.putInfo(object2.toString());
     }
 
     public void registerSwitch(TSNSwitch tsnSwitch){
         String url = this.urlFront + "topology/" + topologyId;
 
         System.out.println("--register node to controller--");
-        String url1 = url + "/node/" + tsnSwitch.getHostMerge();
+        String url1 = url + "/node/" + tsnSwitch.getLan().getMac().replace(":", "-");
         JSONObject node = tsnSwitch.getNodeJSONObject();
         RestfulPutInfo restfulPutInfo1 = RestfulPutInfo.builder()
                 .url(url1)
@@ -82,7 +70,7 @@ public class NetworkLauncher {
 
     public void removeDevice(TSNDevice tsnDevice){
         String url = this.urlFront + "topology/" + topologyId + "/node/" +
-                tsnDevice.getHostMerge();
+                tsnDevice.getMac().replace(":", "-");
         System.out.println("--remove node from controller--");
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder()
                 .url(url)
@@ -100,7 +88,7 @@ public class NetworkLauncher {
 
     public void removeSwitch(TSNSwitch tsnSwitch){
         String url = this.urlFront + "topology/" + topologyId + "/node/" +
-                tsnSwitch.getHostMerge();
+                tsnSwitch.getLan().getMac().replace(":", "-");
         System.out.println("--remove node from controller--");
         RestfulDeleteInfo restfulDeleteInfo = RestfulDeleteInfo.builder().url(url).build();
         restfulDeleteInfo.deleteInfo();

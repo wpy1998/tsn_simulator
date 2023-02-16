@@ -46,28 +46,23 @@ public class StreamLauncher {
         for (int i = 0; i < dest.size(); i++){
             TSNDevice device = dest.get(i);
             ips.add(device.getIp());
-            macs.add(device.getNetworkCard().getMac().replace(":", "-"));
+            macs.add(device.getMac().replace(":", "-"));
         }
         Header header = Header.builder()
                 .uniqueId(convertUniqueID(source.allocateUniqueId()))
                 .rank(rank)
-                .mac(source.getNetworkCard().getMac().replace(":", "-"))
-                .ipv4(source.getNetworkCard().getIp())
-                .hostName(source.getHostMerge())
+                .mac(source.getMac().replace(":", "-"))
+                .ipv4(source.getIp())
+                .hostName(source.getMac().replace(":", "-"))
                 .dest_ip(ips)
                 .dest_mac(macs)
                 .build();
         source.talkerHeaders.add(header);
-        join_talker(header, source.getHostMerge(), "Byte", body);
+        join_talker(header, source.getMac().replace(":", "-"), "Byte", body);
     }
 
     public void removeTalkerStream(TSNDevice device, Header header){
-        leave_talker(header, device.getHostMerge());
-//        for (Header h: device.talkerHeaders){
-//            if (h.getKey().equals(header.getKey())){
-//                break;
-//            }
-//        }
+        leave_talker(header, device.getMac().replace(":", "-"));
     }
 
     public void registerListenerServer(TSNDevice device, int uniqueId){
@@ -76,17 +71,17 @@ public class StreamLauncher {
         }
         Header header = Header.builder().uniqueId(convertUniqueID(uniqueId))
                 .rank((short) 0)
-                .mac(device.getNetworkCard().getMac().replace(":", "-"))
+                .mac(device.getMac().replace(":", "-"))
                 .ipv4(device.getNetworkCard().getIp())
                 .hostName(device.getHostMerge())
                 .build();
         device.listenerHeader = header;
-        join_listener(header, device.getHostMerge());
+        join_listener(header, device.getMac().replace(":", "-"));
     }
 
     public void removeListenerServer(TSNDevice device){
         if (device.listenerHeader == null) return;
-        leave_listener(device.listenerHeader, device.getHostMerge());
+        leave_listener(device.listenerHeader, device.getMac().replace(":", "-"));
         device.listenerHeader = null;
     }
 

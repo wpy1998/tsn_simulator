@@ -73,6 +73,10 @@ public class TSNDevice {
         return ip;
     }
 
+    public String getMac(){
+        return networkCard.getMac();
+    }
+
     public void setIp(){
         int last = allocateIp();
         int a, b, c, d;
@@ -88,7 +92,7 @@ public class TSNDevice {
 
     public JSONObject getNodeJSONObject(){
         JSONObject node = new JSONObject();
-        node.put("node-id", getHostMerge());
+        node.put("node-id", this.networkCard.getMac().replace(":", "-"));
         node.put("node-type", "device");
         node.put("id", this.networkCard.getMac());
 

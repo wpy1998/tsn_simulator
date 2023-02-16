@@ -70,7 +70,7 @@ public class TSNSwitch {
 
     public JSONObject getNodeJSONObject(){
         JSONObject node = new JSONObject();
-        node.put("node-id", getHostMerge());
+        node.put("node-id", lan.getMac().replace(":", "-"));
         node.put("node-type", "switch");
         node.put("id", lan.getMac());
         node.put("port", 830);

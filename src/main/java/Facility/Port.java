@@ -95,10 +95,10 @@ public class Port {
         link.put("link-id", linkId);
         JSONObject source = new JSONObject();
         source.put("source-tp", getName());
-        source.put("source-node", this.owner + getMac());
+        source.put("source-node", getMac().replace(":", "-"));
         link.put("source", source);
         JSONObject destination = new JSONObject();
-        destination.put("dest-node", dest.getOwner() + dest.getMac());
+        destination.put("dest-node", dest.getMac().replace(":", "-"));
         destination.put("dest-tp", dest.getName());
         link.put("destination", destination);
         link.put("speed", getSpeed());

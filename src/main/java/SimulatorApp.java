@@ -1,4 +1,5 @@
 import Hardware.Computer;
+import Topology.FatTreeLauncher;
 import Topology.SquareLauncher;
 
 /**
@@ -21,18 +22,18 @@ public class SimulatorApp {
      */
     public static void main(String[] args){
         Computer computer = new Computer();
-//        SquareLauncher launcher = new SquareLauncher();
-//        launcher.init(computer);
-//        launcher.start(100);
+        SquareLauncher launcher = new SquareLauncher();
+        launcher.init(computer);
+        launcher.start(1);
 
-//        Topology.TwelvePointsLauncher twelvePointsLauncher = new Topology.TwelvePointsLauncher();
+//        TwelvePointsLauncher twelvePointsLauncher = new TwelvePointsLauncher();
 //        twelvePointsLauncher.init(computer);
 //        twelvePointsLauncher.start(100);
 
-        Topology.FatTreeLauncher fatTreeLauncher = new Topology.FatTreeLauncher();
-        fatTreeLauncher.setK(8);
-        fatTreeLauncher.init(computer);
-        fatTreeLauncher.start(100);
+//        FatTreeLauncher fatTreeLauncher = new FatTreeLauncher();
+//        fatTreeLauncher.setK(8);
+//        fatTreeLauncher.init(computer);
+//        fatTreeLauncher.start(100);
     }
     //5, 10, 15, 20, 25
 }

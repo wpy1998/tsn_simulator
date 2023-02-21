@@ -37,7 +37,7 @@ public class Port {
         this.loss = (loss == null) ? 0.0 : loss;
         this.connectTo = null;
         if (portMap.get(name) != null){
-            this.name = name + "*";
+            this.name = name;
         }
         this.linkId = linkId;
 //        System.out.println(mac);

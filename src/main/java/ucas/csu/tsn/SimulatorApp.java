@@ -1,6 +1,7 @@
-import Hardware.Computer;
-import Topology.FatTreeLauncher;
-import Topology.SquareLauncher;
+package ucas.csu.tsn;
+
+import ucas.csu.tsn.Hardware.Computer;
+import ucas.csu.tsn.Topology.SquareLauncher;
 
 /**
  * @author : wpy

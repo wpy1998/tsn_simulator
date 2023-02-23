@@ -1,8 +1,8 @@
-package Topology;
+package ucas.csu.tsn.Topology;
 
-import Facility.NetworkCard;
-import Facility.TSNDevice;
-import Facility.TSNSwitch;
+import ucas.csu.tsn.Facility.NetworkCard;
+import ucas.csu.tsn.Facility.TSNDevice;
+import ucas.csu.tsn.Facility.TSNSwitch;
 
 public class ForlinxLauncher {
     TSNSwitch tsnSwitch1, tsnSwitch2, tsnSwitch3, tsnSwitch4;

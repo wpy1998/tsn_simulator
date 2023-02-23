@@ -1,4 +1,4 @@
-package RestfulAPI;
+package ucas.csu.tsn.RestfulAPI;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -11,33 +11,34 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 
-public class RestfulPutInfo {
+public class RestfulPostInfo {
     private String _url, identity, password;
     private boolean isDebug;
 
     @Builder
-    public RestfulPutInfo(@NonNull String url,
-                          String identity,
-                          String password,
-                          Boolean isDebug){
+    public RestfulPostInfo(@NonNull String url,
+                           String identity,
+                           String password,
+                           Boolean isDebug){
         this._url = url;
         this.identity = (identity != null) ? identity : "admin";
         this.password = (password != null) ? password : "admin";
         this.isDebug = (isDebug != null) ? isDebug : false;
     }
 
-    public int putInfo(String objS){
+    public int postInfo(String objS){
         int resultCode = 400;
         if (isDebug){
-            System.out.println("requestType : putInfo");
+            System.out.println("requestType : postInfo");
             System.out.println("requestBody : " + objS);
         }
         try {
             URL url = new URL(this._url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
+            connection.setRequestMethod("POST");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Type", "application/json");
+            connection.setInstanceFollowRedirects(true);
             connection.setRequestProperty("Authorization", "");
             Authenticator.setDefault(new Authenticator() {
                 @Override
@@ -48,7 +49,7 @@ public class RestfulPutInfo {
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);
-            connection.setConnectTimeout(10000);
+            connection.setConnectTimeout(5000);
             connection.connect();
             StringBuffer params = new StringBuffer();
             params.append(objS);

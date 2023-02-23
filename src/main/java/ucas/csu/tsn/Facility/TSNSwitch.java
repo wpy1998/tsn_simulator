@@ -1,4 +1,4 @@
-package Facility;
+package ucas.csu.tsn.Facility;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 
-import static Hardware.Computer.*;
+import static ucas.csu.tsn.Hardware.Computer.*;
 
 /**
  * @author : wpy

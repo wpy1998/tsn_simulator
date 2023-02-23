@@ -1,10 +1,10 @@
-package Yang;
+package ucas.csu.tsn.Yang;
 
-import Facility.Port;
-import Facility.TSNDevice;
-import Facility.TSNSwitch;
-import RestfulAPI.RestfulDeleteInfo;
-import RestfulAPI.RestfulPutInfo;
+import ucas.csu.tsn.Facility.Port;
+import ucas.csu.tsn.Facility.TSNDevice;
+import ucas.csu.tsn.Facility.TSNSwitch;
+import ucas.csu.tsn.RestfulAPI.RestfulDeleteInfo;
+import ucas.csu.tsn.RestfulAPI.RestfulPutInfo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;

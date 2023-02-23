@@ -1,9 +1,9 @@
-package Hardware;
+package ucas.csu.tsn.Hardware;
 
-import Facility.NetworkCard;
-import Facility.TSNDevice;
-import Facility.Port;
-import Facility.TSNSwitch;
+import ucas.csu.tsn.Facility.NetworkCard;
+import ucas.csu.tsn.Facility.TSNDevice;
+import ucas.csu.tsn.Facility.Port;
+import ucas.csu.tsn.Facility.TSNSwitch;
 
 import java.util.HashMap;
 import java.util.Map;

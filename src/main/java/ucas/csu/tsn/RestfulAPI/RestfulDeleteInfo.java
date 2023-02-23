@@ -1,4 +1,4 @@
-package RestfulAPI;
+package ucas.csu.tsn.RestfulAPI;
 
 import lombok.Builder;
 import lombok.NonNull;

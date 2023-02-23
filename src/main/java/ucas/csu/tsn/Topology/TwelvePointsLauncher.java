@@ -1,19 +1,18 @@
-package Topology;
+package ucas.csu.tsn.Topology;
 
-import Facility.NetworkCard;
-import Facility.Port;
-import Facility.TSNDevice;
-import Facility.TSNSwitch;
-import Hardware.Computer;
-import Yang.Header;
-import Yang.NetworkLauncher;
-import Yang.StreamLauncher;
+import ucas.csu.tsn.Facility.NetworkCard;
+import ucas.csu.tsn.Facility.TSNDevice;
+import ucas.csu.tsn.Facility.TSNSwitch;
+import ucas.csu.tsn.Hardware.Computer;
+import ucas.csu.tsn.Yang.Header;
+import ucas.csu.tsn.Yang.NetworkLauncher;
+import ucas.csu.tsn.Yang.StreamLauncher;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Hardware.Computer.topology_id;
+import static ucas.csu.tsn.Hardware.Computer.topology_id;
 
 public class TwelvePointsLauncher {
     TSNDevice tsnDevice1, tsnDevice2, tsnDevice3, tsnDevice4, tsnDevice5, tsnDevice6,

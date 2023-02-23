@@ -1,4 +1,4 @@
-package Facility;
+package ucas.csu.tsn.Facility;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -6,8 +6,8 @@ import lombok.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Hardware.Computer.networkCardMap;
-import static Hardware.Computer.portMap;
+import static ucas.csu.tsn.Hardware.Computer.networkCardMap;
+import static ucas.csu.tsn.Hardware.Computer.portMap;
 
 public class NetworkCard {
     private static int mac_id = 1;

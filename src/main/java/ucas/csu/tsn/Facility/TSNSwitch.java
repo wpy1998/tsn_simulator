@@ -77,6 +77,16 @@ public class TSNSwitch {
         node.put("username", "admin");
         node.put("password", "admin");
 
+        JSONArray addresses = new JSONArray();
+        JSONObject address = new JSONObject();
+        address.put("id", 0);
+        address.put("mac", lan.getMac());
+        address.put("ip", lan.getIp());
+        address.put("first-seen", firstSeen);
+        address.put("last-seen", System.currentTimeMillis());
+        addresses.add(address);
+        node.put("addresses", addresses);
+
         JSONArray terminationPoint = new JSONArray();
         for (int i = 0; i < wan.getPorts().size(); i++){
             Port port = wan.getPorts().get(i);

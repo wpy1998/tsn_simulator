@@ -98,6 +98,7 @@ public class TSNSwitch {
             Port port = lan.getPorts().get(i);
             JSONObject tp = new JSONObject();
             tp.put("tp-id", port.getName());
+            tp.put("bridge-name", "br0");
             terminationPoint.add(tp);
         }
         node.put("termination-point", terminationPoint);

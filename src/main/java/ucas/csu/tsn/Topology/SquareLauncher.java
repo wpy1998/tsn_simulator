@@ -85,10 +85,13 @@ public class SquareLauncher {
         for (int i = 0; i < cir; i++){
             if (i % 100 < 90){
                 generateUnicastStream(10000);
+                generateBroadcastStream(10000);
             }else if (i % 100 < 99){
                 generateUnicastStream(1000000);
+                generateBroadcastStream(100000);
             }else {
                 generateUnicastStream(10000000);
+                generateBroadcastStream(1000000);
             }
 //            generateBroadcastStream(100000);
         }
